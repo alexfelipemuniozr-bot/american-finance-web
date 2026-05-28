@@ -19,7 +19,7 @@
   --text: #ffffff;
   --muted: #c9c9c9;
   --line: rgba(255, 215, 0, 0.1);
-  --line-strong: rgba(255, 215, 0, 0.26);
+  --line--strong: rgba(255, 215, 0, 0.26);
 }
 
 * {
@@ -39,20 +39,20 @@ body {
   line-height: 1.5;
 }
 
-/* ✅ MISMO MENÚ QUE EL RESTO DEL SITIO */
-.navbar {
+/* ✅ SOLO BARRA SUPERIOR CON BOTÓN DE VOLVER */
+.top-bar {
   position: sticky;
   top: 0;
   z-index: 20;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 18px;
   width: 100%;
   padding: 18px clamp(16px, 5vw, 64px);
   background: rgba(0, 0, 0, 0.78);
   border-bottom: 1px solid var(--line);
   backdrop-filter: blur(18px);
+  margin-bottom: 20px;
 }
 
 .logo {
@@ -65,33 +65,33 @@ body {
   background-clip: text;
 }
 
-.nav-links {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-}
-
-.navbar a {
-  color: var(--gold-dark);
-  text-decoration: none;
-  font-weight: 600;
+.back-btn {
+  border: 0;
+  cursor: pointer;
+  font-weight: 900;
+  color: #050505;
+  background: linear-gradient(45deg, var(--gold-dark), var(--gold));
+  box-shadow: 0 12px 35px rgba(255, 215, 0, 0.16);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  min-height: 46px;
+  padding: 12px 20px;
+  border-radius: 14px;
+  white-space: nowrap;
   font-size: 15px;
-  transition: all 0.3s ease;
-  padding: 8px 12px;
-  border-radius: 8px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.navbar a:hover {
-  color: var(--gold);
-  background: rgba(255, 215, 0, 0.07);
-  text-shadow: 0 0 8px rgba(255, 215, 0, 0.3);
+.back-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 42px rgba(255, 215, 0, 0.24);
 }
 
 /* HEADER */
 .header {
-  padding: 40px clamp(16px, 5vw, 64px) 20px;
+  padding: 20px clamp(16px, 5vw, 64px) 20px;
   text-align: center;
 }
 
@@ -258,21 +258,20 @@ iframe {
 
 /* ✅ RESPONSIVE PARA CELULAR MEJORADO */
 @media (max-width: 767px) {
-  .navbar {
-    flex-direction: column;
+  .top-bar {
+    flex-direction: row;
     padding: 14px 18px;
-    gap: 12px;
+    gap: 10px;
   }
 
-  .nav-links {
-    justify-content: center;
-    width: 100%;
-    gap: 4px;
+  .logo {
+    font-size: 22px;
   }
 
-  .navbar a {
-    font-size: 14px;
-    padding: 6px 10px;
+  .back-btn {
+    min-height: 44px;
+    padding: 10px 18px;
+    font-size: 15px;
   }
 
   .header {
@@ -353,20 +352,13 @@ iframe {
   100% { transform: rotate(360deg); }
 }
 </style>
-
+</head>
 <body>
 
-<!-- ✅ MENÚ IGUAL AL RESTO DEL SITIO -->
-<div class="navbar">
+<!-- ✅ SOLO LOGO Y BOTÓN VOLVER AL INICIO -->
+<div class="top-bar">
   <div class="logo">American Finance</div>
-  <div class="nav-links">
-    <a href="index.html">Inicio</a>
-    <a href="cursos.html">Cursos</a>
-    <a href="mercados.html">Mercados</a>
-    <a href="simulador.html">Simulador</a>
-    <a href="calculadora.html">Calculadora</a>
-    <a href="comunidad.html">Comunidad</a>
-  </div>
+  <a href="index.html" class="back-btn">Volver al inicio</a>
 </div>
 
 <!-- HEADER -->
