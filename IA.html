@@ -3,13 +3,25 @@
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 <title>American Finance AI</title>
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
 <style>
+
+:root {
+    --gold: #ffd700;
+    --gold-dark: #d4af37;
+    --success: #00ff88;
+    --text: #ffffff;
+    --muted: #aaa;
+    --panel-bg: rgba(255,255,255,.03);
+    --border: rgba(255,215,0,.1);
+}
 
 *{
     margin:0;
@@ -19,296 +31,267 @@
 }
 
 body{
-
     background:
     radial-gradient(circle at top left, rgba(255,215,0,.12), transparent 25%),
     radial-gradient(circle at bottom right, rgba(0,255,136,.08), transparent 25%),
     linear-gradient(180deg,#050505,#090909,#071510);
 
-    color:white;
+    color:var(--text);
     min-height:100vh;
     overflow-x:hidden;
-
+    line-height:1.5;
 }
 
-/* NAVBAR */
-
-.navbar{
-
-    width:100%;
-    padding:22px 60px;
-
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-
+/* ✅ BARRA SUPERIOR - SOLO LOGO Y BOTÓN VOLVER */
+.top-bar {
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    width: 100%;
+    padding: 18px clamp(16px, 5vw, 60px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     background:rgba(0,0,0,.75);
-
-    backdrop-filter:blur(12px);
-
-    border-bottom:1px solid rgba(255,255,255,.05);
-
-    position:sticky;
-    top:0;
-    z-index:999;
-
+    backdrop-filter: blur(18px);
+    border-bottom: 1px solid rgba(255,255,255,.05);
 }
 
-.logo{
-
-    font-size:28px;
-    font-weight:900;
-    color:gold;
-
+.logo {
+    font-size: clamp(22px, 4vw, 28px);
+    font-weight: 900;
+    background: linear-gradient(45deg, var(--gold-dark), var(--gold));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
-.nav-links{
-
-    display:flex;
-    gap:25px;
-
+.back-btn {
+    border: 0;
+    cursor: pointer;
+    font-weight: 900;
+    color: #050505;
+    background: linear-gradient(45deg, var(--gold-dark), var(--gold));
+    box-shadow: 0 12px 35px rgba(255, 215, 0, 0.16);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    min-height: 46px;
+    padding: 12px 20px;
+    border-radius: 14px;
+    white-space: nowrap;
+    font-size: 15px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.nav-links a{
-
-    color:#ccc;
-    text-decoration:none;
-    transition:.3s;
-
-}
-
-.nav-links a:hover{
-    color:gold;
+.back-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 42px rgba(255, 215, 0, 0.24);
 }
 
 /* HERO */
-
 .hero{
-
     text-align:center;
-    padding:90px 20px 50px;
-
+    padding: clamp(40px, 10vw, 90px) 20px clamp(30px, 6vw, 50px);
 }
 
 .hero h1{
-
-    font-size:65px;
+    font-size: clamp(36px, 8vw, 65px);
     line-height:1.1;
     font-weight:900;
-
 }
 
 .hero h1 span{
-
-    background:linear-gradient(45deg,#d4af37,#ffd700);
+    background:linear-gradient(45deg, var(--gold-dark), var(--gold));
     -webkit-background-clip:text;
     -webkit-text-fill-color:transparent;
-
+    background-clip:text;
 }
 
 .hero p{
-
-    margin-top:20px;
-    color:#aaa;
-    font-size:19px;
-
+    margin-top:15px;
+    color:var(--muted);
+    font-size: clamp(16px, 3vw, 19px);
+    max-width:700px;
+    margin-left:auto;
+    margin-right:auto;
 }
 
-/* AI */
-
+/* AI CONTAINER */
 .ai-container{
-
     width:100%;
     max-width:1200px;
-
-    margin:40px auto;
-
-    background:rgba(255,255,255,.03);
-
-    border:1px solid rgba(255,215,0,.1);
-
+    margin:20px auto 50px;
+    background:var(--panel-bg);
+    border:1px solid var(--border);
     border-radius:30px;
-
     overflow:hidden;
-
     backdrop-filter:blur(14px);
-
     box-shadow:
     0 0 40px rgba(0,0,0,.5),
     0 0 25px rgba(255,215,0,.05);
-
+    margin-left: clamp(16px, 5vw, auto);
+    margin-right: clamp(16px, 5vw, auto);
 }
 
 .ai-header{
-
-    padding:24px;
-
-    font-size:24px;
+    padding: clamp(18px, 4vw, 24px);
+    font-size: clamp(20px, 4vw, 24px);
     font-weight:800;
-
-    background:linear-gradient(45deg,#d4af37,#ffd700);
-
+    background:linear-gradient(45deg, var(--gold-dark), var(--gold));
     color:black;
-
+    text-align: center;
 }
 
 .chat-box{
-
-    height:550px;
-
+    height: clamp(450px, 80vw, 550px);
     overflow-y:auto;
-
-    padding:25px;
-
+    padding: clamp(18px, 4vw, 25px);
     display:flex;
     flex-direction:column;
-    gap:18px;
+    gap:15px;
+    background: rgba(10,10,10,0.2);
+}
 
+/* Scrollbar personalizada dorada */
+.chat-box::-webkit-scrollbar {
+    width: 6px;
+}
+.chat-box::-webkit-scrollbar-track {
+    background: #1a1a1a;
+    border-radius: 10px;
+}
+.chat-box::-webkit-scrollbar-thumb {
+    background: linear-gradient(45deg, var(--gold-dark), var(--gold));
+    border-radius: 10px;
 }
 
 /* MENSAJES */
-
 .message{
-
-    padding:18px 20px;
-
+    padding: clamp(14px, 3vw, 18px) clamp(16px, 3vw, 20px);
     border-radius:20px;
-
-    line-height:1.8;
-
-    max-width:80%;
-
+    line-height:1.6;
+    max-width: min(85%, 650px);
     animation:fade .3s ease;
-
     white-space:pre-wrap;
-
+    font-size: clamp(15px, 3vw, 16px);
 }
 
 .user{
-
     align-self:flex-end;
-
     background:#1b1b1b;
-
     border:1px solid rgba(255,215,0,.15);
-
+    color: #fff;
 }
 
 .ai{
-
     align-self:flex-start;
-
     background:rgba(255,215,0,.08);
-
     border:1px solid rgba(255,215,0,.15);
-
+    color: #f9f9f9;
 }
 
 @keyframes fade{
-
     from{
         opacity:0;
         transform:translateY(15px);
     }
-
     to{
         opacity:1;
         transform:translateY(0);
     }
-
 }
 
 /* INPUT */
-
 .ai-input-area{
-
     display:flex;
-    gap:15px;
-
-    padding:22px;
-
+    gap:10px;
+    padding: clamp(16px, 4vw, 22px);
     border-top:1px solid rgba(255,255,255,.05);
-
+    flex-wrap: wrap;
 }
 
 .ai-input-area input{
-
-    flex:1;
-
-    padding:18px;
-
+    flex:1 1 200px;
+    min-height: 48px;
+    padding:0 clamp(14px, 3vw, 18px);
     border:none;
     outline:none;
-
     border-radius:18px;
-
     background:#111;
-
     color:white;
-
-    font-size:16px;
-
+    font-size: clamp(15px, 3vw, 16px);
     border:1px solid #222;
-
+    transition: border 0.3s ease;
 }
 
 .ai-input-area input:focus{
-
-    border-color:gold;
-
+    border-color:var(--gold);
 }
 
 .ai-input-area button{
-
-    padding:18px 30px;
-
+    min-height: 48px;
+    padding:0 clamp(20px, 4vw, 30px);
     border:none;
-
     border-radius:18px;
-
     cursor:pointer;
-
     font-weight:800;
-    font-size:15px;
-
-    background:linear-gradient(45deg,#d4af37,#ffd700);
-
+    font-size: clamp(14px, 3vw, 15px);
+    background:linear-gradient(45deg, var(--gold-dark), var(--gold));
     color:black;
-
     transition:.3s;
-
+    white-space: nowrap;
 }
 
 .ai-input-area button:hover{
-
     transform:translateY(-3px);
-
-    box-shadow:
-    0 0 25px rgba(255,215,0,.3);
-
+    box-shadow: 0 0 25px rgba(255,215,0,.3);
 }
 
-/* RESPONSIVE */
-
-@media(max-width:700px){
-
-    .navbar{
-
-        padding:20px;
-
-        flex-direction:column;
-        gap:20px;
-
+/* ✅ RESPONSIVE PARA CELULAR */
+@media(max-width:767px){
+    .top-bar {
+        padding: 14px 18px;
     }
-
-    .hero h1{
-        font-size:42px;
+    .logo {
+        font-size: 22px;
     }
-
-    .chat-box{
-        height:500px;
+    .back-btn {
+        padding: 10px 16px;
+        font-size: 14px;
+        min-height: 42px;
     }
-
+    .hero {
+        padding-top: 30px;
+    }
+    .hero h1 {
+        font-size: 32px;
+    }
+    .ai-container {
+        margin-left: 12px;
+        margin-right: 12px;
+        border-radius: 20px;
+    }
+    .ai-header {
+        font-size: 18px;
+        padding: 15px;
+    }
+    .chat-box {
+        height: 480px;
+        padding: 15px;
+    }
+    .message {
+        max-width: 90%;
+        font-size: 15px;
+    }
+    .ai-input-area {
+        padding: 15px;
+    }
+    .ai-input-area input,
+    .ai-input-area button {
+        min-height: 44px;
+    }
 }
 
 </style>
@@ -316,59 +299,31 @@ body{
 
 <body>
 
-<!-- NAVBAR -->
-
-<div class="navbar">
-
-    <div class="logo">
-        American Finance
-    </div>
-
-    <div class="nav-links">
-
-        <a href="index.html">Inicio</a>
-        <a href="cursos.html">Cursos</a>
-        <a href="Mercados.html">Mercados</a>
-        <a href="simulador.html">Simulador</a>
-
-    </div>
-
+<!-- ✅ SOLO LOGO Y BOTÓN VOLVER AL INICIO -->
+<div class="top-bar">
+    <div class="logo">American Finance</div>
+    <a href="index.html" class="back-btn">Volver al inicio</a>
 </div>
 
 <!-- HERO -->
-
 <div class="hero">
-
-    <h1>
-        AF-01
-        <span>Financial AI</span>
-    </h1>
-
-    <p>
-        Inteligencia artificial financiera integrada con Groq Cloud
-    </p>
-
+    <h1>AF-01 <span>Financial AI</span></h1>
+    <p>Inteligencia artificial financiera integrada con Groq Cloud</p>
 </div>
 
 <!-- IA -->
-
 <div class="ai-container">
 
     <div class="ai-header">
         AF-01 • Financial Assistant
     </div>
 
-    <div
-    id="chatBox"
-    class="chat-box">
-
+    <div id="chatBox" class="chat-box">
         <div class="message ai">
 Hola 👋
-
 Soy AF-01, tu asistente financiero futurista.
 
 Puedes preguntarme sobre:
-
 • ahorro
 • inversiones
 • negocios
@@ -377,20 +332,11 @@ Puedes preguntarme sobre:
 • criptomonedas
 • finanzas personales
         </div>
-
     </div>
 
     <div class="ai-input-area">
-
-        <input
-        type="text"
-        id="userInput"
-        placeholder="Pregunta algo sobre finanzas...">
-
-        <button onclick="askAI()">
-            Enviar
-        </button>
-
+        <input type="text" id="userInput" placeholder="Pregunta algo sobre finanzas...">
+        <button onclick="askAI()">Enviar</button>
     </div>
 
 </div>
@@ -398,187 +344,112 @@ Puedes preguntarme sobre:
 <script>
 
 /* API KEY */
-
-const API_KEY =
-"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";
+const API_KEY = "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";
 
 /* CHAT */
-
-const chatBox =
-document.getElementById("chatBox");
+const chatBox = document.getElementById("chatBox");
 
 /* ASK AI */
-
 async function askAI(){
-
-    const input =
-    document.getElementById("userInput");
-
-    const message =
-    input.value.trim();
-
+    const input = document.getElementById("userInput");
+    const message = input.value.trim();
     if(!message) return;
 
     /* USER MESSAGE */
-
     chatBox.innerHTML += `
-
     <div class="message user">
         ${message}
     </div>
-
     `;
 
     input.value = "";
-
-    chatBox.scrollTop =
-    chatBox.scrollHeight;
+    chatBox.scrollTop = chatBox.scrollHeight;
 
     /* LOADING */
-
-    const loading =
-    document.createElement("div");
-
-    loading.className =
-    "message ai";
-
+    const loading = document.createElement("div");
+    loading.className = "message ai";
     loading.id = "loading";
-
-    loading.innerText =
-    "AF-01 está pensando...";
-
+    loading.innerText = "AF-01 está pensando...";
     chatBox.appendChild(loading);
-
-    chatBox.scrollTop =
-    chatBox.scrollHeight;
+    chatBox.scrollTop = chatBox.scrollHeight;
 
     try{
-
         const response = await fetch(
         "https://api.groq.com/openai/v1/chat/completions",
         {
-
             method:"POST",
-
             headers:{
-
                 "Content-Type":"application/json",
-
-                "Authorization":
-                `Bearer ${API_KEY}`
-
+                "Authorization": `Bearer ${API_KEY}`
             },
-
             body:JSON.stringify({
-
                 model:"llama-3.3-70b-versatile",
-
                 messages:[
-
                     {
                         role:"system",
                         content:`
 Eres AF-01, una inteligencia artificial financiera futurista.
-
 Explicas finanzas de forma:
 - moderna
 - clara
 - motivadora
 - inteligente
-
 Responde corto pero útil.
 `
                     },
-
                     {
                         role:"user",
                         content:message
                     }
-
                 ],
-
                 temperature:0.7,
                 max_tokens:1024
-
             })
-
         });
 
-        const data =
-        await response.json();
-
+        const data = await response.json();
         console.log(data);
 
-        document
-        .getElementById("loading")
-        .remove();
+        document.getElementById("loading").remove();
 
         /* ERROR */
-
         if(data.error){
-
             chatBox.innerHTML += `
-
             <div class="message ai">
                 Error: ${data.error.message}
             </div>
-
             `;
-
             return;
-
         }
 
         /* AI RESPONSE */
-
-        const aiText =
-        data.choices[0].message.content;
-
+        const aiText = data.choices[0].message.content;
         chatBox.innerHTML += `
-
         <div class="message ai">
             ${aiText}
         </div>
-
         `;
-
-        chatBox.scrollTop =
-        chatBox.scrollHeight;
+        chatBox.scrollTop = chatBox.scrollHeight;
 
     }
 
     catch(error){
-
-        document
-        .getElementById("loading")
-        .remove();
-
+        document.getElementById("loading").remove();
         console.error(error);
-
         chatBox.innerHTML += `
-
         <div class="message ai">
             Error conectando con Groq Cloud.
         </div>
-
         `;
-
     }
 
 }
 
 /* ENTER */
-
-document
-.getElementById("userInput")
-.addEventListener("keypress",function(e){
-
+document.getElementById("userInput").addEventListener("keypress",function(e){
     if(e.key === "Enter"){
-
         askAI();
-
     }
-
 });
 
 </script>
