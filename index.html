@@ -648,7 +648,7 @@
       }
     }
 
-    /* ==== ✨ MENÚ MÓVIL CORREGIDO Y MEJORADO ✨ ==== */
+    /* ==== ✨ MENÚ MÓVIL ARREGLADO AL 100% ✨ ==== */
     @media (max-width: 768px) {
       .navbar {
         grid-template-columns: 1fr auto;
@@ -675,7 +675,7 @@
         background: rgba(255, 215, 0, 0.1);
       }
 
-      /* ✨ CONTENEDOR DEL MENÚ - AHORA CON SCROLL INTERNO ✨ */
+      /* ✨ CONTENEDOR DEL MENÚ ✨ */
       .nav-menu {
         display: block;
         position: absolute;
@@ -690,12 +690,11 @@
         box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6), 
                     inset 0 1px 0 rgba(255, 255, 255, 0.07);
         
-        /* 🔴 SOLUCIÓN CLAVE: Altura máxima y desplazamiento */
-        max-height: 75vh; /* Limita altura al 75% de la pantalla */
-        overflow-y: auto; /* Activa desplazamiento si es necesario */
-        overscroll-behavior: contain; /* Evita que se mueva el fondo */
+        max-height: 75vh;
+        overflow-y: auto;
+        overscroll-behavior: contain;
         
-        /* Animación de apertura */
+        /* Animación */
         opacity: 0;
         transform: translateY(-10px) scale(0.98);
         pointer-events: none;
@@ -703,7 +702,6 @@
           opacity 0.4s ease,
           transform 0.4s ease;
         
-        /* Estilo barra de desplazamiento */
         scrollbar-width: thin;
         scrollbar-color: var(--gold-dark) rgba(0,0,0,0.2);
       }
@@ -747,7 +745,6 @@
         overflow: hidden;
       }
 
-      /* Íconos decorativos en enlaces */
       .nav-links a:nth-child(1)::before { content: "🏠"; font-size: 18px; }
       .nav-links a:nth-child(2)::before { content: "📚"; font-size: 18px; }
       .nav-links a:nth-child(3)::before { content: "📎"; font-size: 18px; }
@@ -756,9 +753,7 @@
       .nav-links a:nth-child(6)::before { content: "👥"; font-size: 18px; }
       .nav-links a:nth-child(7)::before { content: "📈"; font-size: 18px; }
 
-      .nav-links a::after {
-        display: none;
-      }
+      .nav-links a::after { display: none; }
 
       .nav-links a:active,
       .nav-links a:hover {
@@ -768,16 +763,13 @@
         transform: translateX(4px);
       }
 
-      .nav-links a:hover::before {
-        transform: scale(1.15);
-      }
-
-      /* ✨ SECCIÓN DE CUENTA / AJUSTES - TOTALMENTE VISIBLE ✨ */
+      /* ✨ SECCIÓN DE CUENTA - SUBMENÚ FUNCIONANDO ✨ */
       .settings-container {
         width: 100%;
-        margin: 6px 18px 22px; /* Más margen inferior para asegurar visibilidad */
+        margin: 6px 18px 22px;
         padding: 16px 0 0;
         border-top: 1px solid var(--line);
+        position: relative; /* IMPORTANTE para que salga debajo */
       }
 
       .settings-button {
@@ -805,33 +797,48 @@
         background: rgba(255, 215, 0, 0.08);
       }
 
+      /* 🔴 LO ARREGLÉ AQUÍ: Submenú oculto y que se abre al hacer clic */
       .dropdown-menu {
-        position: static;
+        position: absolute;
+        top: calc(100% + 8px);
+        left: 0;
+        right: 0;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-8px);
+        transition: all 0.3s ease;
+        
+        background: rgba(12, 12, 12, 0.97);
+        border: 1px solid var(--line-strong);
+        border-radius: 14px;
+        padding: 10px;
+        backdrop-filter: blur(16px);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+      }
+
+      /* ✅ Al pasar o tocar, se muestra */
+      .settings-container:active .dropdown-menu,
+      .settings-container:focus-within .dropdown-menu,
+      .settings-container:hover .dropdown-menu {
         opacity: 1;
         visibility: visible;
-        transform: none;
-        box-shadow: none;
-        border: none;
-        background: transparent;
-        margin-top: 10px;
-        padding: 0;
+        transform: translateY(0);
       }
 
       .dropdown-menu a {
-        padding: 15px 18px; /* Más alto para tocar fácil */
+        padding: 15px 18px;
         text-align: center;
         border-radius: 12px;
         margin-bottom: 8px;
         background: rgba(255, 255, 255, 0.03);
-        font-size: 16px; /* Letra más legible */
+        font-size: 16px;
         font-weight: 600;
         border: 1px solid transparent;
         transition: all 0.3s ease;
+        display: block;
       }
 
-      .dropdown-menu a:first-child {
-        border-bottom: none;
-      }
+      .dropdown-menu a:first-child { border-bottom: none; }
 
       .dropdown-menu .login-option {
         color: var(--muted);
@@ -850,7 +857,7 @@
         color: #000;
         font-weight: 700;
         box-shadow: 0 4px 12px rgba(212, 175, 55, 0.2);
-        margin-bottom: 0; /* Quita margen extra al final */
+        margin-bottom: 0;
       }
       
       .dropdown-menu .register-option:active,
@@ -952,7 +959,7 @@
 
       .market-card:hover,
       .benefit-card:hover,
-      .course-card:hover,
+ .course-card:hover,
       .stat:hover {
         transform: none;
       }
