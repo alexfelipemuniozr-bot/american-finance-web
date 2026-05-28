@@ -120,15 +120,24 @@
       backdrop-filter: blur(16px);
     }
 
+    /* === LOGO: IMAGEN + TEXTO === */
     .logo {
-      font-size: clamp(23px, 3vw, 30px);
+      display: flex;
+      align-items: center;
+      gap: 10px; /* Espacio entre imagen y texto */
+      font-size: clamp(20px, 3vw, 26px); /* Tamaño de letra adaptable */
       font-weight: 900;
-      line-height: 1;
       white-space: nowrap;
       background: linear-gradient(45deg, var(--gold-dark), var(--gold));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
+    }
+
+    .logo-img {
+      height: 36px; /* Tamaño de la imagen en escritorio */
+      width: auto;
+      object-fit: contain;
     }
 
     .nav-toggle {
@@ -648,7 +657,7 @@
       }
     }
 
-    /* ==== ✨ MENÚ MÓVIL ARREGLADO AL 100% ✨ ==== */
+    /* ==== ✨ MENÚ MÓVIL ARREGLADO ✨ ==== */
     @media (max-width: 768px) {
       .navbar {
         grid-template-columns: 1fr auto;
@@ -658,8 +667,12 @@
         top: 0;
       }
 
+      /* Tamaño del logo en celular */
+      .logo-img {
+        height: 28px; /* Más pequeño para que quepa bien */
+      }
       .logo {
-        font-size: 20px;
+        font-size: 18px;
       }
 
       .nav-toggle {
@@ -675,7 +688,6 @@
         background: rgba(255, 215, 0, 0.1);
       }
 
-      /* ✨ CONTENEDOR DEL MENÚ ✨ */
       .nav-menu {
         display: block;
         position: absolute;
@@ -687,20 +699,16 @@
         background: rgba(8, 8, 8, 0.94);
         backdrop-filter: blur(20px);
         border: 1px solid var(--line-strong);
-        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6), 
-                    inset 0 1px 0 rgba(255, 255, 255, 0.07);
+        box-shadow: 0 15px 40px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.07);
         
         max-height: 75vh;
         overflow-y: auto;
         overscroll-behavior: contain;
         
-        /* Animación */
         opacity: 0;
         transform: translateY(-10px) scale(0.98);
         pointer-events: none;
-        transition: 
-          opacity 0.4s ease,
-          transform 0.4s ease;
+        transition: opacity 0.4s ease, transform 0.4s ease;
         
         scrollbar-width: thin;
         scrollbar-color: var(--gold-dark) rgba(0,0,0,0.2);
@@ -721,7 +729,6 @@
       }
 
       .nav-links {
-        display: flex;
         flex-direction: column;
         gap: 6px;
         padding: 18px 18px 12px;
@@ -763,13 +770,13 @@
         transform: translateX(4px);
       }
 
-      /* ✨ SECCIÓN DE CUENTA - SUBMENÚ FUNCIONANDO ✨ */
+      /* ✅ SECCIÓN DE CUENTA Y AJUSTES FUNCIONANDO */
       .settings-container {
         width: 100%;
         margin: 6px 18px 22px;
         padding: 16px 0 0;
         border-top: 1px solid var(--line);
-        position: relative; /* IMPORTANTE para que salga debajo */
+        position: relative;
       }
 
       .settings-button {
@@ -797,7 +804,6 @@
         background: rgba(255, 215, 0, 0.08);
       }
 
-      /* 🔴 LO ARREGLÉ AQUÍ: Submenú oculto y que se abre al hacer clic */
       .dropdown-menu {
         position: absolute;
         top: calc(100% + 8px);
@@ -816,7 +822,6 @@
         box-shadow: 0 8px 20px rgba(0,0,0,0.4);
       }
 
-      /* ✅ Al pasar o tocar, se muestra */
       .settings-container:active .dropdown-menu,
       .settings-container:focus-within .dropdown-menu,
       .settings-container:hover .dropdown-menu {
@@ -866,7 +871,6 @@
         box-shadow: 0 6px 16px rgba(212, 175, 55, 0.25);
       }
 
-      /* === RESTO DE AJUSTES MOVILES === */
       .hero {
         grid-template-columns: 1fr;
         gap: 30px;
@@ -959,7 +963,7 @@
 
       .market-card:hover,
       .benefit-card:hover,
- .course-card:hover,
+      .course-card:hover,
       .stat:hover {
         transform: none;
       }
@@ -988,7 +992,12 @@
   </div>
 
   <header class="navbar">
-    <div class="logo">American Finance</div>
+    <!-- ✅ AQUÍ ESTÁ: IMAGEN + TEXTO -->
+    <div class="logo">
+      <!-- 👇 COLOCA AQUÍ EL ENLACE DE TU IMAGEN ENTRE LAS COMILLAS -->
+      <img src="logo american finance-Photoroom.png" alt="Logo American Finance" class="logo-img">
+      American Finance
+    </div>
 
     <button class="nav-toggle" type="button" aria-label="Abrir menú" aria-expanded="false">
       <span></span>
@@ -1023,18 +1032,8 @@
     <section class="hero" id="inicio">
       <div class="hero-text">
         <div class="eyebrow">Educación financiera moderna</div>
-
-        <h1>
-          El futuro de tus
-          <span>finanzas</span>
-          comienza hoy
-        </h1>
-
-        <p>
-          Aprende inversiones, ahorro y educación financiera con una experiencia
-          moderna, interactiva y diseñada para tomar mejores decisiones con tu dinero.
-        </p>
-
+        <h1>El futuro de tus <span>finanzas</span> comienza hoy</h1>
+        <p>Aprende inversiones, ahorro y educación financiera con una experiencia moderna, interactiva y diseñada para tomar mejores decisiones con tu dinero.</p>
         <div class="buttons">
           <a class="cta-button primary" href="#cursos">Explorar cursos</a>
           <a class="cta-button" href="#mercados">Ver mercados</a>
@@ -1046,15 +1045,13 @@
       <aside class="hero-panel" aria-label="Panel de mercado">
         <div class="panel-header">
           <h3>Mercado en vivo</h3>
-          <span class="live">Activo</span>
+          <span class="live">● Activo</span>
         </div>
-
-        <div class="graph" aria-hidden="true">
-          <svg viewBox="0 0 500 260" role="img" aria-label="Gráfica de crecimiento financiero">
+        <div class="graph">
+          <svg viewBox="0 0 500 260" role="img" aria-label="Gráfica de crecimiento">
             <path d="M25 210 C80 170, 115 190, 160 142 S240 110, 285 126 S360 74, 405 92 S465 48, 486 35"></path>
           </svg>
         </div>
-
         <div class="panel-metrics">
           <div class="metric">
             <span>Portafolio</span>
@@ -1070,7 +1067,6 @@
 
     <section class="section market-section" id="mercados">
       <h2 class="section-title">Mercados <span>Principales</span></h2>
-
       <div class="market-cards">
         <article class="market-card">
           <h2>BTC</h2>
@@ -1081,7 +1077,7 @@
           <p class="up">+2.74%</p>
         </article>
         <article class="market-card">
-          <h2>S&amp;P 500</h2>
+          <h2>S&P 500</h2>
           <p class="down">-0.36%</p>
         </article>
         <article class="market-card">
@@ -1093,27 +1089,26 @@
 
     <section class="section benefits">
       <h2 class="section-title">Aprende con <span>ventajas reales</span></h2>
-
       <div class="benefit-grid">
         <article class="benefit-card">
-          <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=900&q=80" alt="Persona revisando finanzas">
+          <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=900&q=80" alt="Finanzas personales">
           <div class="card-content">
             <h3>Finanzas personales</h3>
             <p>Organiza ingresos, gastos, deudas y metas para construir una base financiera sólida.</p>
           </div>
         </article>
         <article class="benefit-card">
-          <img src="https://images.unsplash.com/photo-1642790106117-e829e14a795f?auto=format&fit=crop&w=900&q=80" alt="Análisis de mercado en pantalla">
+          <img src="https://images.unsplash.com/photo-1642790106117-e829e14a795f?auto=format&fit=crop&w=900&q=80" alt="Inversiones">
           <div class="card-content">
             <h3>Inversiones</h3>
             <p>Comprende riesgo, diversificación, activos y estrategias antes de invertir.</p>
           </div>
         </article>
         <article class="benefit-card">
-          <img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=900&q=80" alt="Equipo trabajando en negocio">
+          <img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=900&q=80" alt="Negocios">
           <div class="card-content">
             <h3>Negocios</h3>
-            <p>Desarrolla criterio para emprender, validar ideas y tomar decisiones con datos.</p>
+            <p>Desarrolla criterio para emprender, validar ideas y tomar decisiones basadas en datos.</p>
           </div>
         </article>
       </div>
@@ -1121,44 +1116,43 @@
 
     <section class="section courses" id="cursos">
       <h2 class="section-title">Cursos <span>Destacados</span></h2>
-
       <div class="course-grid">
         <article class="course-card">
-          <img src="https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=900&q=80" alt="Reunión sobre inversiones">
+          <img src="https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=900&q=80" alt="Introducción a inversiones">
           <div class="course-info">
             <h3>Introducción a Inversiones</h3>
             <p>Aprende los fundamentos del mercado financiero moderno.</p>
-            <a class="course-button" href="#cursos">Entrar</a>
+            <a class="course-button cta-button" href="#curso1">Entrar</a>
           </div>
         </article>
         <article class="course-card">
-          <img src="https://images.unsplash.com/photo-1518186285589-2f7649de83e0?auto=format&fit=crop&w=900&q=80" alt="Tecnología blockchain">
+          <img src="https://images.unsplash.com/photo-1518186285589-2f7649de83e0?auto=format&fit=crop&w=900&q=80" alt="Criptomonedas">
           <div class="course-info">
             <h3>Criptomonedas</h3>
-            <p>Descubre el funcionamiento de blockchain y activos digitales.</p>
-            <a class="course-button" href="#cursos">Entrar</a>
+            <p>Descubre el funcionamiento de la tecnología blockchain y activos digitales.</p>
+            <a class="course-button cta-button" href="#curso2">Entrar</a>
           </div>
         </article>
         <article class="course-card">
-          <img src="https://images.unsplash.com/photo-1559526324-593bc073d938?auto=format&fit=crop&w=900&q=80" alt="Planificación financiera">
+          <img src="https://images.unsplash.com/photo-1559526324-593bc073d938?auto=format&fit=crop&w=900&q=80" alt="Finanzas personales">
           <div class="course-info">
             <h3>Finanzas Personales</h3>
-            <p>Organiza tu dinero y mejora tus hábitos financieros.</p>
-            <a class="course-button" href="#cursos">Entrar</a>
+            <p>Organiza tu dinero y mejora tus hábitos financieros desde hoy.</p>
+            <a class="course-button cta-button" href="#curso3">Entrar</a>
           </div>
         </article>
         <article class="course-card">
-          <img src="https://images.unsplash.com/photo-1556740749-887f6717d7e4?auto=format&fit=crop&w=900&q=80" alt="Trabajo financiero digital">
+          <img src="https://images.unsplash.com/photo-1556740749-887f6717d7e4?auto=format&fit=crop&w=900&q=80" alt="Trading inteligente">
           <div class="course-info">
             <h3>Trading Inteligente</h3>
-            <p>Aprende estrategias modernas para analizar mercados.</p>
-            <a class="course-button" href="#cursos">Entrar</a>
+            <p>Aprende estrategias modernas para analizar mercados y operar con criterio.</p>
+            <a class="course-button cta-button" href="#curso4">Entrar</a>
           </div>
         </article>
       </div>
     </section>
 
-    <section class="section stats" aria-label="Indicadores de American Finance">
+    <section class="section stats" aria-label="Indicadores">
       <article class="stat">
         <h2 data-final="+12K">+12K</h2>
         <p>Usuarios activos</p>
@@ -1183,65 +1177,51 @@
   </footer>
 
   <script>
-    const navbar = document.querySelector(".navbar");
-    const navToggle = document.querySelector(".nav-toggle");
-    const navMenu = document.querySelector(".nav-menu");
-    const navItems = document.querySelectorAll(".nav-menu a");
+    const navbar = document.querySelector('.navbar');
+    const navToggle = document.querySelector('.nav-toggle');
+    const navLinks = document.querySelectorAll('.nav-menu a');
 
-    function closeMenu() {
-      navbar.classList.remove("open");
-      navToggle.setAttribute("aria-expanded", "false");
-      navToggle.setAttribute("aria-label", "Abrir menú");
-    }
-
-    navToggle.addEventListener("click", () => {
-      const isOpen = navbar.classList.toggle("open");
-      navToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
-      navToggle.setAttribute("aria-label", isOpen ? "Cerrar menú" : "Abrir menú");
+    navToggle.addEventListener('click', () => {
+      const isOpen = navbar.classList.toggle('open');
+      navToggle.setAttribute('aria-expanded', isOpen);
+      navToggle.setAttribute('aria-label', isOpen ? 'Cerrar menú' : 'Abrir menú');
     });
 
-    navItems.forEach((item) => {
-      item.addEventListener("click", closeMenu);
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        navbar.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', 'false');
+        navToggle.setAttribute('aria-label', 'Abrir menú');
+      });
     });
 
-    window.addEventListener("resize", () => {
-      if (window.innerWidth > 768) closeMenu();
-    });
-
-    document.addEventListener("mousemove", (event) => {
-      if (window.innerWidth < 1024) return;
-
-      const hero = document.querySelector(".hero");
-      const x = (window.innerWidth / 2 - event.pageX) / 60;
-      const y = (window.innerHeight / 2 - event.pageY) / 60;
-
-      hero.style.backgroundPosition = `${x}px ${y}px`;
-    });
-
-    const stats = document.querySelectorAll(".stat h2");
-
-    stats.forEach((stat) => {
-      const finalText = stat.dataset.final || stat.textContent;
-
-      if (finalText.includes("/")) {
-        stat.textContent = finalText;
-        return;
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 768) {
+        navbar.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', 'false');
+        navToggle.setAttribute('aria-label', 'Abrir menú');
       }
+    });
 
-      const isPercent = finalText.includes("%");
-      const isPlus = finalText.includes("+");
-      const finalNumber = Number.parseInt(finalText.replace(/\D/g, ""), 10);
+    const stats = document.querySelectorAll('.stat h2');
+    stats.forEach(stat => {
+      const finalText = stat.dataset.final || stat.textContent;
+      if (!finalText) return;
+      
+      if(finalText.includes('K') || finalText.includes('+') || finalText.includes('%')) return;
+
       let current = 0;
-
-      const interval = window.setInterval(() => {
-        current += Math.max(1, Math.ceil(finalNumber / 45));
-
-        if (current >= finalNumber) {
-          current = finalNumber;
-          window.clearInterval(interval);
+      const target = parseInt(finalText);
+      const step = Math.max(1, Math.floor(target / 45));
+      
+      const interval = setInterval(() => {
+        current += step;
+        if (current >= target) {
+          stat.textContent = finalText;
+          clearInterval(interval);
+        } else {
+          stat.textContent = current;
         }
-
-        stat.textContent = `${isPlus ? "+" : ""}${current}${isPercent ? "%" : ""}`;
       }, 28);
     });
   </script>
