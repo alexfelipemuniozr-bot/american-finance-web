@@ -772,7 +772,7 @@
         padding-left: 16px;
       }
 
-      /* === SECCIÓN HERO EN CELULAR === */
+      /* === SECCIÓN HERO EN CELULAR - TEXTO ARREGLADO === */
       .hero {
         grid-template-columns: 1fr;
         gap: 30px;
@@ -781,16 +781,23 @@
         background-attachment: scroll;
       }
 
+      .hero-text {
+        text-align: center; /* Todo centrado */
+      }
+
       .hero h1 {
-        font-size: 32px;
-        line-height: 1.1;
-        text-align: center;
+        font-size: 30px; /* Tamaño perfecto para no cortar */
+        line-height: 1.2; /* Espaciado entre líneas ordenado */
+        margin-bottom: 16px;
+        word-break: normal; /* No corta palabras a la mitad */
       }
 
       .hero p {
         font-size: 16px;
-        text-align: center;
+        line-height: 1.6; /* Espaciado cómodo para leer */
         margin-bottom: 24px;
+        text-align: center;
+        padding: 0 5px;
       }
 
       .eyebrow {
