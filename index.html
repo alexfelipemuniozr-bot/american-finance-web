@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>American Finance | Educaci&oacute;n Financiera</title>
+  <title>American Finance | Educación Financiera</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -12,16 +12,16 @@
     :root {
       --bg: #050505;
       --panel: rgba(17, 17, 17, 0.92);
-      --panel-soft: rgba(255, 255, 255, 0.045);
+      --glass: rgba(255, 255, 255, 0.055);
       --gold: #ffd700;
       --gold-dark: #d4af37;
-      --text: #f5f5f5;
-      --muted: #c8c8c8;
-      --line: rgba(255, 215, 0, 0.1);
-      --line-strong: rgba(255, 215, 0, 0.28);
+      --cyan: #00d9ff;
       --green: #00ff9d;
       --red: #ff5b5b;
-      --cyan: #00cfff;
+      --text: #f5f5f5;
+      --muted: #c9c9c9;
+      --line: rgba(255, 215, 0, 0.11);
+      --line-strong: rgba(255, 215, 0, 0.28);
       --shadow: 0 24px 70px rgba(0, 0, 0, 0.42);
     }
 
@@ -41,7 +41,7 @@
       color: var(--text);
       background:
         radial-gradient(circle at top left, rgba(255, 215, 0, 0.08), transparent 26%),
-        radial-gradient(circle at bottom right, rgba(0, 207, 255, 0.05), transparent 24%),
+        radial-gradient(circle at bottom right, rgba(0, 217, 255, 0.06), transparent 24%),
         var(--bg);
       overflow-x: hidden;
     }
@@ -53,24 +53,12 @@
 
     a {
       color: inherit;
+      text-decoration: none;
     }
 
     img {
       display: block;
       max-width: 100%;
-    }
-
-    ::-webkit-scrollbar {
-      width: 10px;
-    }
-
-    ::-webkit-scrollbar-track {
-      background: #080808;
-    }
-
-    ::-webkit-scrollbar-thumb {
-      background: linear-gradient(var(--gold-dark), var(--gold));
-      border-radius: 20px;
     }
 
     .particles {
@@ -83,22 +71,23 @@
 
     .particles span {
       position: absolute;
-      bottom: -30px;
+      bottom: -32px;
       width: 4px;
       height: 4px;
       border-radius: 50%;
       background: var(--gold);
+      box-shadow: 0 0 16px var(--gold);
       opacity: 0;
       animation: floatParticle linear infinite;
     }
 
-    .particles span:nth-child(1) { left: 10%; animation-duration: 12s; }
-    .particles span:nth-child(2) { left: 22%; animation-duration: 18s; }
-    .particles span:nth-child(3) { left: 38%; animation-duration: 14s; }
-    .particles span:nth-child(4) { left: 52%; animation-duration: 20s; }
-    .particles span:nth-child(5) { left: 68%; animation-duration: 13s; }
-    .particles span:nth-child(6) { left: 84%; animation-duration: 17s; }
-    .particles span:nth-child(7) { left: 94%; animation-duration: 11s; }
+    .particles span:nth-child(1) { left: 9%; animation-duration: 12s; }
+    .particles span:nth-child(2) { left: 22%; animation-duration: 17s; background: var(--cyan); box-shadow: 0 0 16px var(--cyan); }
+    .particles span:nth-child(3) { left: 37%; animation-duration: 14s; }
+    .particles span:nth-child(4) { left: 54%; animation-duration: 20s; background: var(--green); box-shadow: 0 0 16px var(--green); }
+    .particles span:nth-child(5) { left: 71%; animation-duration: 13s; }
+    .particles span:nth-child(6) { left: 86%; animation-duration: 18s; background: var(--cyan); box-shadow: 0 0 16px var(--cyan); }
+    .particles span:nth-child(7) { left: 95%; animation-duration: 11s; }
 
     @keyframes floatParticle {
       0% {
@@ -107,7 +96,7 @@
       }
 
       20% {
-        opacity: 0.55;
+        opacity: 0.58;
       }
 
       100% {
@@ -121,7 +110,7 @@
       top: 0;
       z-index: 50;
       display: grid;
-      grid-template-columns: auto 1fr auto;
+      grid-template-columns: auto 1fr;
       align-items: center;
       gap: 26px;
       width: 100%;
@@ -148,12 +137,12 @@
       height: 46px;
       align-items: center;
       justify-content: center;
+      justify-self: end;
       flex-direction: column;
       gap: 5px;
       border: 1px solid var(--line-strong);
       border-radius: 14px;
-      color: var(--gold);
-      background: rgba(255, 255, 255, 0.04);
+      background: rgba(255, 255, 255, 0.045);
     }
 
     .nav-toggle span {
@@ -176,6 +165,14 @@
       transform: translateY(-7px) rotate(-45deg);
     }
 
+    .nav-menu {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 24px;
+      min-width: 0;
+    }
+
     .nav-links {
       display: flex;
       align-items: center;
@@ -188,8 +185,7 @@
       position: relative;
       color: #d7d7d7;
       font-size: 15px;
-      font-weight: 600;
-      text-decoration: none;
+      font-weight: 650;
       white-space: nowrap;
       transition: color 0.2s ease;
     }
@@ -219,22 +215,26 @@
       gap: 10px;
     }
 
-    .auth button,
+    .auth-link,
     .cta-button,
     .course-button {
       min-height: 44px;
       border: 0;
       border-radius: 13px;
-      font-weight: 800;
-      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+      font-weight: 850;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, color 0.2s ease;
     }
 
-    .auth button {
+    .auth-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       padding: 10px 16px;
+      white-space: nowrap;
     }
 
     .login {
-      border: 1px solid var(--line-strong) !important;
+      border: 1px solid var(--line-strong);
       color: var(--gold);
       background: transparent;
     }
@@ -333,6 +333,9 @@
     }
 
     .cta-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       padding: 14px 22px;
       color: var(--gold);
       border: 1px solid var(--line-strong);
@@ -350,10 +353,6 @@
       color: #050505;
       background: linear-gradient(45deg, var(--cyan), var(--green));
       box-shadow: 0 12px 34px rgba(0, 255, 157, 0.16);
-    }
-
-    .ai:hover {
-      box-shadow: 0 16px 42px rgba(0, 255, 157, 0.28);
     }
 
     .hero-panel {
@@ -384,7 +383,7 @@
     .live {
       color: var(--green);
       font-size: 14px;
-      font-weight: 800;
+      font-weight: 850;
       white-space: nowrap;
     }
 
@@ -421,15 +420,9 @@
       animation: lineAnim 5s linear infinite alternate;
     }
 
-    @keyframes lineAnim {
-      to {
-        stroke-dashoffset: 0;
-      }
-    }
-
     .panel-metrics {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 14px;
       margin-top: 18px;
     }
@@ -516,7 +509,7 @@
 
     .market-card p {
       font-size: 18px;
-      font-weight: 800;
+      font-weight: 850;
     }
 
     .up {
@@ -564,6 +557,9 @@
     }
 
     .course-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
       width: 100%;
       padding: 13px;
     }
@@ -607,33 +603,40 @@
       }
     }
 
-    @media (max-width: 1180px) {
+    @keyframes lineAnim {
+      to {
+        stroke-dashoffset: 0;
+      }
+    }
+
+    @media (max-width: 1080px) {
       .navbar {
         grid-template-columns: auto auto;
       }
 
       .nav-toggle {
         display: flex;
-        justify-self: end;
+      }
+
+      .nav-menu {
+        display: none;
+        grid-column: 1 / -1;
+        grid-template-columns: 1fr;
+        gap: 14px;
+        padding: 10px;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        background: rgba(10, 10, 10, 0.98);
+      }
+
+      .navbar.open .nav-menu {
+        display: grid;
       }
 
       .nav-links {
-        grid-column: 1 / -1;
-        flex-direction: column;
         align-items: stretch;
+        flex-direction: column;
         gap: 0;
-        max-height: 0;
-        overflow: hidden;
-        border: 0 solid var(--line);
-        border-radius: 18px;
-        background: rgba(10, 10, 10, 0.98);
-        transition: max-height 0.3s ease, padding 0.3s ease, border-width 0.3s ease;
-      }
-
-      .navbar.open .nav-links {
-        max-height: 460px;
-        padding: 8px;
-        border-width: 1px;
       }
 
       .nav-links a {
@@ -651,13 +654,14 @@
       }
 
       .auth {
-        grid-column: 1 / -1;
-        justify-self: stretch;
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+        padding-top: 12px;
+        border-top: 1px solid rgba(255, 215, 0, 0.12);
       }
 
-      .auth button {
+      .auth-link {
         width: 100%;
       }
 
@@ -693,9 +697,9 @@
       }
     }
 
-    @media (min-width: 1181px) {
-      .nav-links {
-        max-height: none !important;
+    @media (min-width: 1081px) {
+      .nav-menu {
+        display: grid !important;
       }
     }
 
@@ -707,6 +711,10 @@
 
       .logo {
         white-space: normal;
+      }
+
+      .auth {
+        grid-template-columns: 1fr;
       }
 
       .hero {
@@ -803,32 +811,34 @@
   <header class="navbar">
     <div class="logo">American Finance</div>
 
-    <button class="nav-toggle" type="button" aria-label="Abrir men&uacute;" aria-expanded="false">
+    <button class="nav-toggle" type="button" aria-label="Abrir menú" aria-expanded="false">
       <span></span>
       <span></span>
       <span></span>
     </button>
 
-    <nav class="nav-links" aria-label="Navegaci&oacute;n principal">
-      <a href="index.html">Inicio</a>
-      <a href="cursos.html">Cursos</a>
-      <a href="recursos.html">Recursos</a>
-      <a href="simulador.html">Simulador</a>
-      <a href="calculadora.html">Calculadora</a>
-      <a href="comunidad.html">Comunidad</a>
-      <a href="Mercados.html">Mercados</a>
-    </nav>
+    <div class="nav-menu">
+      <nav class="nav-links" aria-label="Navegación principal">
+        <a href="index.html">Inicio</a>
+        <a href="cursos.html">Cursos</a>
+        <a href="recursos.html">Recursos</a>
+        <a href="simulador.html">Simulador</a>
+        <a href="calculadora.html">Calculadora</a>
+        <a href="comunidad.html">Comunidad</a>
+        <a href="Mercados.html">Mercados</a>
+      </nav>
 
-    <div class="auth">
-      <button class="login" type="button" onclick="location.href='home.html'">Iniciar sesi&oacute;n</button>
-      <button class="register" type="button" onclick="location.href='register.html'">Registrarse</button>
+      <div class="auth">
+        <a class="auth-link login" href="home.html">Iniciar sesión</a>
+        <a class="auth-link register" href="register.html">Registrarse</a>
+      </div>
     </div>
   </header>
 
   <main>
     <section class="hero" id="inicio">
       <div class="hero-text">
-        <div class="eyebrow">Educaci&oacute;n financiera moderna</div>
+        <div class="eyebrow">Educación financiera moderna</div>
 
         <h1>
           El futuro de tus
@@ -837,15 +847,15 @@
         </h1>
 
         <p>
-          Aprende inversiones, ahorro y educaci&oacute;n financiera con una experiencia
-          moderna, interactiva y dise&ntilde;ada para tomar mejores decisiones con tu dinero.
+          Aprende inversiones, ahorro y educación financiera con una experiencia
+          moderna, interactiva y diseñada para tomar mejores decisiones con tu dinero.
         </p>
 
         <div class="buttons">
-          <button class="cta-button primary" type="button" onclick="location.href='cursos.html'">Explorar cursos</button>
-          <button class="cta-button" type="button" onclick="location.href='Mercados.html'">Ver mercados</button>
-          <button class="cta-button" type="button" onclick="location.href='Evaluaci&oacute;n.html'">Evaluaci&oacute;n</button>
-          <button class="cta-button ai" type="button" onclick="location.href='IA.html'">Asistente IA</button>
+          <a class="cta-button primary" href="cursos.html">Explorar cursos</a>
+          <a class="cta-button" href="Mercados.html">Ver mercados</a>
+          <a class="cta-button" href="Evaluación.html">Evaluación</a>
+          <a class="cta-button ai" href="IA.html">Asistente IA</a>
         </div>
       </div>
 
@@ -856,7 +866,7 @@
         </div>
 
         <div class="graph" aria-hidden="true">
-          <svg viewBox="0 0 500 260" role="img" aria-label="Gr&aacute;fica de crecimiento financiero">
+          <svg viewBox="0 0 500 260" role="img" aria-label="Gráfica de crecimiento financiero">
             <path d="M25 210 C80 170, 115 190, 160 142 S240 110, 285 126 S360 74, 405 92 S465 48, 486 35"></path>
           </svg>
         </div>
@@ -909,15 +919,15 @@
           <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=900&q=80" alt="Persona revisando finanzas">
           <div class="card-content">
             <h3>Finanzas personales</h3>
-            <p>Organiza ingresos, gastos, deudas y metas para construir una base financiera s&oacute;lida.</p>
+            <p>Organiza ingresos, gastos, deudas y metas para construir una base financiera sólida.</p>
           </div>
         </article>
 
         <article class="benefit-card">
-          <img src="https://images.unsplash.com/photo-1642790106117-e829e14a795f?auto=format&fit=crop&w=900&q=80" alt="An&aacute;lisis de mercado en pantalla">
+          <img src="https://images.unsplash.com/photo-1642790106117-e829e14a795f?auto=format&fit=crop&w=900&q=80" alt="Análisis de mercado en pantalla">
           <div class="card-content">
             <h3>Inversiones</h3>
-            <p>Comprende riesgo, diversificaci&oacute;n, activos y estrategias antes de invertir.</p>
+            <p>Comprende riesgo, diversificación, activos y estrategias antes de invertir.</p>
           </div>
         </article>
 
@@ -936,29 +946,29 @@
 
       <div class="course-grid">
         <article class="course-card">
-          <img src="https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=900&q=80" alt="Reuni&oacute;n sobre inversiones">
+          <img src="https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=900&q=80" alt="Reunión sobre inversiones">
           <div class="course-info">
-            <h3>Introducci&oacute;n a Inversiones</h3>
+            <h3>Introducción a Inversiones</h3>
             <p>Aprende los fundamentos del mercado financiero moderno.</p>
-            <button class="course-button" type="button" onclick="location.href='cursos.html'">Entrar</button>
+            <a class="course-button" href="cursos.html">Entrar</a>
           </div>
         </article>
 
         <article class="course-card">
-          <img src="https://images.unsplash.com/photo-1518186285589-2f7649de83e0?auto=format&fit=crop&w=900&q=80" alt="Tecnolog&iacute;a blockchain">
+          <img src="https://images.unsplash.com/photo-1518186285589-2f7649de83e0?auto=format&fit=crop&w=900&q=80" alt="Tecnología blockchain">
           <div class="course-info">
             <h3>Criptomonedas</h3>
             <p>Descubre el funcionamiento de blockchain y activos digitales.</p>
-            <button class="course-button" type="button" onclick="location.href='cursos.html'">Entrar</button>
+            <a class="course-button" href="cursos.html">Entrar</a>
           </div>
         </article>
 
         <article class="course-card">
-          <img src="https://images.unsplash.com/photo-1559526324-593bc073d938?auto=format&fit=crop&w=900&q=80" alt="Planificaci&oacute;n financiera">
+          <img src="https://images.unsplash.com/photo-1559526324-593bc073d938?auto=format&fit=crop&w=900&q=80" alt="Planificación financiera">
           <div class="course-info">
             <h3>Finanzas Personales</h3>
-            <p>Organiza tu dinero y mejora tus h&aacute;bitos financieros.</p>
-            <button class="course-button" type="button" onclick="location.href='cursos.html'">Entrar</button>
+            <p>Organiza tu dinero y mejora tus hábitos financieros.</p>
+            <a class="course-button" href="cursos.html">Entrar</a>
           </div>
         </article>
 
@@ -967,7 +977,7 @@
           <div class="course-info">
             <h3>Trading Inteligente</h3>
             <p>Aprende estrategias modernas para analizar mercados.</p>
-            <button class="course-button" type="button" onclick="location.href='cursos.html'">Entrar</button>
+            <a class="course-button" href="cursos.html">Entrar</a>
           </div>
         </article>
       </div>
@@ -981,7 +991,7 @@
 
       <article class="stat">
         <h2 data-final="95%">95%</h2>
-        <p>Satisfacci&oacute;n</p>
+        <p>Satisfacción</p>
       </article>
 
       <article class="stat">
@@ -997,26 +1007,33 @@
   </main>
 
   <footer>
-    <p>&copy; 2026 American Finance &middot; Educaci&oacute;n financiera interactiva</p>
+    <p>&copy; 2026 American Finance · Educación financiera interactiva</p>
   </footer>
 
   <script>
     const navbar = document.querySelector(".navbar");
     const navToggle = document.querySelector(".nav-toggle");
-    const navLinks = document.querySelectorAll(".nav-links a");
+    const navMenu = document.querySelector(".nav-menu");
+    const navItems = document.querySelectorAll(".nav-menu a");
+
+    function closeMenu() {
+      navbar.classList.remove("open");
+      navToggle.setAttribute("aria-expanded", "false");
+      navToggle.setAttribute("aria-label", "Abrir menú");
+    }
 
     navToggle.addEventListener("click", () => {
       const isOpen = navbar.classList.toggle("open");
       navToggle.setAttribute("aria-expanded", isOpen ? "true" : "false");
-      navToggle.setAttribute("aria-label", isOpen ? "Cerrar menu" : "Abrir menu");
+      navToggle.setAttribute("aria-label", isOpen ? "Cerrar menú" : "Abrir menú");
     });
 
-    navLinks.forEach((link) => {
-      link.addEventListener("click", () => {
-        navbar.classList.remove("open");
-        navToggle.setAttribute("aria-expanded", "false");
-        navToggle.setAttribute("aria-label", "Abrir menu");
-      });
+    navItems.forEach((item) => {
+      item.addEventListener("click", closeMenu);
+    });
+
+    window.addEventListener("resize", () => {
+      if (window.innerWidth > 1080) closeMenu();
     });
 
     document.addEventListener("mousemove", (event) => {
@@ -1026,8 +1043,7 @@
       const x = (window.innerWidth / 2 - event.pageX) / 60;
       const y = (window.innerHeight / 2 - event.pageY) / 60;
 
-      hero.style.setProperty("--hero-x", `${x}px`);
-      hero.style.setProperty("--hero-y", `${y}px`);
+      hero.style.backgroundPosition = `${x}px ${y}px`;
     });
 
     const stats = document.querySelectorAll(".stat h2");
