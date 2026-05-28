@@ -1,208 +1,675 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<title>Calculadora Financiera</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora Financiera | American Finance</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-<style>
-body {
-  margin: 0;
-  font-family: Arial;
-  background: #0a0a0a;
-  color: white;
-}
+  <style>
+    :root {
+      --bg: #050505;
+      --panel: rgba(15, 15, 15, 0.9);
+      --panel-soft: rgba(255, 255, 255, 0.045);
+      --gold: #ffd700;
+      --gold-dark: #d4af37;
+      --green: #00ff9d;
+      --cyan: #00cfff;
+      --red: #ff5b5b;
+      --text: #f5f5f5;
+      --muted: #c7c7c7;
+      --line: rgba(255, 215, 0, 0.1);
+      --line-strong: rgba(255, 215, 0, 0.28);
+      --shadow: 0 24px 70px rgba(0, 0, 0, 0.42);
+    }
 
-/* NAV */
-.navbar {
-  padding: 20px 40px;
-  background: black;
-  color: gold;
-  display: flex;
-  justify-content: space-between;
-}
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-.navbar a {
-  color: gold;
-  text-decoration: none;
-}
+    body {
+      min-height: 100vh;
+      font-family: "Inter", Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(255, 215, 0, 0.1), transparent 25%),
+        radial-gradient(circle at bottom right, rgba(0, 207, 255, 0.07), transparent 25%),
+        linear-gradient(180deg, #050505, #071414);
+      overflow-x: hidden;
+    }
 
-/* CONTENEDOR */
-.container {
-  padding: 40px;
-  max-width: 600px;
-  margin: auto;
-}
+    button,
+    input {
+      font: inherit;
+    }
 
-/* TABS */
-.tabs {
-  display: flex;
-  margin-bottom: 20px;
-}
+    button {
+      cursor: pointer;
+    }
 
-.tab {
-  flex: 1;
-  padding: 10px;
-  text-align: center;
-  background: #111;
-  cursor: pointer;
-  border: 1px solid #333;
-}
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      width: 100%;
+      padding: 18px clamp(16px, 5vw, 60px);
+      border-bottom: 1px solid var(--line);
+      background: rgba(0, 0, 0, 0.78);
+      backdrop-filter: blur(16px);
+    }
 
-.tab.active {
-  background: gold;
-  color: black;
-}
+    .logo {
+      font-size: clamp(22px, 4vw, 30px);
+      font-weight: 900;
+      line-height: 1;
+      background: linear-gradient(45deg, var(--gold-dark), var(--gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
 
-/* PANEL */
-.panel {
-  display: none;
-}
+    .back-link {
+      min-height: 44px;
+      padding: 12px 18px;
+      border: 1px solid var(--line-strong);
+      border-radius: 14px;
+      color: var(--gold);
+      background: rgba(255, 255, 255, 0.04);
+      font-weight: 800;
+      text-decoration: none;
+      transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+    }
 
-.panel.active {
-  display: block;
-}
+    .back-link:hover {
+      color: #050505;
+      background: var(--gold);
+      transform: translateY(-2px);
+    }
 
-/* INPUT */
-input {
-  width: 100%;
-  padding: 10px;
-  margin-top: 10px;
-  border-radius: 8px;
-  border: none;
-}
+    .page {
+      width: min(1180px, 100%);
+      margin: 0 auto;
+      padding: clamp(42px, 7vw, 78px) clamp(14px, 4vw, 26px) 90px;
+    }
 
-/* BOTÓN */
-button {
-  width: 100%;
-  padding: 12px;
-  margin-top: 10px;
-  border: none;
-  border-radius: 8px;
-  background: gold;
-  color: black;
-  font-weight: bold;
-  cursor: pointer;
-}
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(280px, 390px);
+      gap: 28px;
+      align-items: stretch;
+      margin-bottom: 28px;
+    }
 
-/* RESULTADO */
-.result {
-  margin-top: 15px;
-  font-size: 18px;
-  color: #00ff88;
-}
-</style>
+    .intro,
+    .summary-card,
+    .calculator {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(16px);
+    }
+
+    .intro {
+      padding: clamp(26px, 5vw, 44px);
+      border-radius: 28px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      min-height: 34px;
+      margin-bottom: 18px;
+      padding: 8px 13px;
+      border: 1px solid var(--line-strong);
+      border-radius: 999px;
+      color: var(--gold);
+      background: rgba(255, 215, 0, 0.06);
+      font-size: 13px;
+      font-weight: 900;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      max-width: 780px;
+      margin-bottom: 18px;
+      font-size: clamp(38px, 6vw, 66px);
+      line-height: 1.05;
+      font-weight: 900;
+      overflow-wrap: anywhere;
+    }
+
+    h1 span {
+      background: linear-gradient(45deg, var(--gold-dark), var(--gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .intro p {
+      max-width: 720px;
+      color: var(--muted);
+      font-size: clamp(16px, 2.4vw, 19px);
+      line-height: 1.75;
+    }
+
+    .summary-card {
+      display: grid;
+      align-content: center;
+      gap: 18px;
+      min-width: 0;
+      padding: 28px;
+      border-radius: 28px;
+    }
+
+    .summary-card h2 {
+      font-size: 22px;
+      line-height: 1.2;
+    }
+
+    .summary-grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    .summary-item {
+      padding: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 16px;
+      background: var(--panel-soft);
+    }
+
+    .summary-item span {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .summary-item strong {
+      color: var(--gold);
+      font-size: 20px;
+    }
+
+    .calculator {
+      display: grid;
+      grid-template-columns: 270px minmax(0, 1fr);
+      gap: 0;
+      overflow: hidden;
+      border-radius: 30px;
+    }
+
+    .tabs {
+      display: grid;
+      align-content: start;
+      gap: 10px;
+      padding: 22px;
+      border-right: 1px solid var(--line);
+      background: rgba(0, 0, 0, 0.28);
+    }
+
+    .tab {
+      width: 100%;
+      min-height: 58px;
+      padding: 14px 16px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 16px;
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.035);
+      text-align: left;
+      font-weight: 800;
+      transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+    }
+
+    .tab small {
+      display: block;
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .tab.active {
+      color: #050505;
+      border-color: transparent;
+      background: linear-gradient(45deg, var(--gold-dark), var(--gold));
+    }
+
+    .tab.active small {
+      color: rgba(0, 0, 0, 0.72);
+    }
+
+    .panel-area {
+      min-width: 0;
+      padding: clamp(22px, 4vw, 36px);
+    }
+
+    .panel {
+      display: none;
+      animation: fadeUp 0.35s ease;
+    }
+
+    .panel.active {
+      display: block;
+    }
+
+    .panel h2 {
+      margin-bottom: 10px;
+      font-size: clamp(28px, 4vw, 40px);
+      line-height: 1.15;
+    }
+
+    .panel-description {
+      margin-bottom: 26px;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .field {
+      min-width: 0;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--text);
+      font-weight: 800;
+    }
+
+    input {
+      width: 100%;
+      min-height: 52px;
+      padding: 14px 15px;
+      border: 1px solid #252525;
+      border-radius: 14px;
+      color: var(--text);
+      background: #0b0b0b;
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    input:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.1);
+    }
+
+    .calculate-btn {
+      width: 100%;
+      min-height: 56px;
+      margin-top: 24px;
+      padding: 16px 20px;
+      border: 0;
+      border-radius: 16px;
+      color: #050505;
+      background: linear-gradient(45deg, var(--gold-dark), var(--gold));
+      font-size: 17px;
+      font-weight: 900;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .calculate-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 42px rgba(255, 215, 0, 0.25);
+    }
+
+    .result {
+      min-height: 64px;
+      margin-top: 22px;
+      padding: 18px;
+      border: 1px solid rgba(0, 255, 157, 0.22);
+      border-radius: 18px;
+      color: var(--green);
+      background: rgba(0, 255, 157, 0.07);
+      font-size: clamp(18px, 3vw, 22px);
+      font-weight: 900;
+      line-height: 1.45;
+    }
+
+    .result.error {
+      color: #ffd0d0;
+      border-color: rgba(255, 91, 91, 0.32);
+      background: rgba(255, 91, 91, 0.08);
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(16px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 900px) {
+      .hero,
+      .calculator {
+        grid-template-columns: 1fr;
+      }
+
+      .tabs {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .tab {
+        min-height: 62px;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .navbar {
+        align-items: stretch;
+        flex-direction: column;
+        padding: 16px;
+      }
+
+      .logo {
+        text-align: center;
+      }
+
+      .back-link {
+        width: 100%;
+        text-align: center;
+      }
+
+      .page {
+        padding-top: 34px;
+      }
+
+      .intro,
+      .summary-card {
+        border-radius: 22px;
+      }
+
+      .tabs {
+        grid-template-columns: 1fr 1fr;
+        padding: 14px;
+      }
+
+      .tab {
+        padding: 12px 10px;
+      }
+
+      .panel-area {
+        padding: 20px;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .calculate-btn:hover,
+      .back-link:hover {
+        transform: none;
+      }
+    }
+  </style>
 </head>
 
 <body>
+  <header class="navbar">
+    <div class="logo">American Finance</div>
+    <a class="back-link" href="index.html">Volver al inicio</a>
+  </header>
 
-<div class="navbar">
-  <div>🧮 Calculadora Financiera</div>
-  <div><a href="index.html">⬅ Inicio</a></div>
-</div>
+  <main class="page">
+    <section class="hero">
+      <div class="intro">
+        <div class="eyebrow">Herramientas financieras</div>
+        <h1>Calculadora <span>financiera</span></h1>
+        <p>
+          Proyecta intereses, ahorro, metas y deudas con una interfaz clara,
+          rápida y alineada con el ecosistema visual de American Finance.
+        </p>
+      </div>
 
-<div class="container">
+      <aside class="summary-card" aria-label="Resumen de herramientas">
+        <h2>Calcula en segundos</h2>
+        <div class="summary-grid">
+          <div class="summary-item">
+            <span>Modos disponibles</span>
+            <strong>4</strong>
+          </div>
+          <div class="summary-item">
+            <span>Enfoque</span>
+            <strong>Planificación</strong>
+          </div>
+          <div class="summary-item">
+            <span>Resultados</span>
+            <strong>Instantáneos</strong>
+          </div>
+        </div>
+      </aside>
+    </section>
 
-<!-- TABS -->
-<div class="tabs">
-  <div class="tab active" onclick="cambiar(0)">Interés</div>
-  <div class="tab" onclick="cambiar(1)">Ahorro</div>
-  <div class="tab" onclick="cambiar(2)">Meta</div>
-  <div class="tab" onclick="cambiar(3)">Deuda</div>
-</div>
+    <section class="calculator" aria-label="Calculadora financiera">
+      <div class="tabs" role="tablist" aria-label="Tipos de cálculo">
+        <button class="tab active" type="button" role="tab" aria-selected="true" data-panel="compound">
+          Interés
+          <small>Capital futuro</small>
+        </button>
+        <button class="tab" type="button" role="tab" aria-selected="false" data-panel="saving">
+          Ahorro
+          <small>Total acumulado</small>
+        </button>
+        <button class="tab" type="button" role="tab" aria-selected="false" data-panel="goal">
+          Meta
+          <small>Ahorro mensual</small>
+        </button>
+        <button class="tab" type="button" role="tab" aria-selected="false" data-panel="debt">
+          Deuda
+          <small>Meses restantes</small>
+        </button>
+      </div>
 
-<!-- INTERÉS COMPUESTO -->
-<div class="panel active">
-  <h2>📈 Interés compuesto</h2>
-  <input id="capital" placeholder="Capital inicial">
-  <input id="tasa" placeholder="Tasa anual (%)">
-  <input id="años" placeholder="Años">
+      <div class="panel-area">
+        <article class="panel active" id="compound">
+          <h2>Interés compuesto</h2>
+          <p class="panel-description">Calcula cuánto podría crecer tu capital con una tasa anual durante varios años.</p>
 
-  <button onclick="interes()">Calcular</button>
-  <div class="result" id="r1"></div>
-</div>
+          <div class="form-grid">
+            <div class="field">
+              <label for="capital">Capital inicial</label>
+              <input id="capital" type="number" min="0" step="0.01" placeholder="Ej: 1000">
+            </div>
+            <div class="field">
+              <label for="tasa">Tasa anual (%)</label>
+              <input id="tasa" type="number" min="0" step="0.01" placeholder="Ej: 8">
+            </div>
+            <div class="field">
+              <label for="years">Años</label>
+              <input id="years" type="number" min="0" step="1" placeholder="Ej: 5">
+            </div>
+          </div>
 
-<!-- AHORRO -->
-<div class="panel">
-  <h2>💰 Ahorro mensual</h2>
-  <input id="ahorro" placeholder="Ahorro mensual">
-  <input id="meses" placeholder="Meses">
+          <button class="calculate-btn" type="button" data-action="compound">Calcular interés</button>
+          <div class="result" id="r1">Ingresa los datos para ver el resultado.</div>
+        </article>
 
-  <button onclick="ahorro()">Calcular</button>
-  <div class="result" id="r2"></div>
-</div>
+        <article class="panel" id="saving">
+          <h2>Ahorro mensual</h2>
+          <p class="panel-description">Estima cuánto acumularías si ahorras una cantidad fija cada mes.</p>
 
-<!-- META -->
-<div class="panel">
-  <h2>🎯 Meta financiera</h2>
-  <input id="meta" placeholder="Meta total">
-  <input id="mesesMeta" placeholder="Meses">
+          <div class="form-grid">
+            <div class="field">
+              <label for="monthlySaving">Ahorro mensual</label>
+              <input id="monthlySaving" type="number" min="0" step="0.01" placeholder="Ej: 150">
+            </div>
+            <div class="field">
+              <label for="savingMonths">Meses</label>
+              <input id="savingMonths" type="number" min="0" step="1" placeholder="Ej: 12">
+            </div>
+          </div>
 
-  <button onclick="metaCalc()">Calcular</button>
-  <div class="result" id="r3"></div>
-</div>
+          <button class="calculate-btn" type="button" data-action="saving">Calcular ahorro</button>
+          <div class="result" id="r2">Ingresa los datos para ver el resultado.</div>
+        </article>
 
-<!-- DEUDA -->
-<div class="panel">
-  <h2>💳 Pago de deuda</h2>
-  <input id="deuda" placeholder="Deuda total">
-  <input id="pago" placeholder="Pago mensual">
+        <article class="panel" id="goal">
+          <h2>Meta financiera</h2>
+          <p class="panel-description">Define una meta total y descubre cuánto deberías ahorrar cada mes para alcanzarla.</p>
 
-  <button onclick="deudaCalc()">Calcular</button>
-  <div class="result" id="r4"></div>
-</div>
+          <div class="form-grid">
+            <div class="field">
+              <label for="goalAmount">Meta total</label>
+              <input id="goalAmount" type="number" min="0" step="0.01" placeholder="Ej: 5000">
+            </div>
+            <div class="field">
+              <label for="goalMonths">Meses</label>
+              <input id="goalMonths" type="number" min="1" step="1" placeholder="Ej: 18">
+            </div>
+          </div>
 
-</div>
+          <button class="calculate-btn" type="button" data-action="goal">Calcular meta</button>
+          <div class="result" id="r3">Ingresa los datos para ver el resultado.</div>
+        </article>
 
-<script>
+        <article class="panel" id="debt">
+          <h2>Pago de deuda</h2>
+          <p class="panel-description">Calcula en cuántos meses terminarías de pagar una deuda con un pago mensual fijo.</p>
 
-// tabs
-function cambiar(i){
-document.querySelectorAll(".tab").forEach((t,idx)=>{
-t.classList.toggle("active", idx===i);
-});
-document.querySelectorAll(".panel").forEach((p,idx)=>{
-p.classList.toggle("active", idx===i);
-});
-}
+          <div class="form-grid">
+            <div class="field">
+              <label for="debtAmount">Deuda total</label>
+              <input id="debtAmount" type="number" min="0" step="0.01" placeholder="Ej: 2400">
+            </div>
+            <div class="field">
+              <label for="monthlyPayment">Pago mensual</label>
+              <input id="monthlyPayment" type="number" min="0" step="0.01" placeholder="Ej: 200">
+            </div>
+          </div>
 
-// interés
-function interes(){
-let c = parseFloat(capital.value);
-let t = parseFloat(tasa.value)/100;
-let a = parseFloat(años.value);
+          <button class="calculate-btn" type="button" data-action="debt">Calcular deuda</button>
+          <div class="result" id="r4">Ingresa los datos para ver el resultado.</div>
+        </article>
+      </div>
+    </section>
+  </main>
 
-let total = c * Math.pow(1+t,a);
-r1.innerText = "Resultado: $" + total.toFixed(2);
-}
+  <script>
+    const formatter = new Intl.NumberFormat("es-CO", {
+      style: "currency",
+      currency: "USD",
+      maximumFractionDigits: 2
+    });
 
-// ahorro
-function ahorro(){
-let m = parseFloat(ahorro.value);
-let meses = parseFloat(document.getElementById("meses").value);
+    const tabs = document.querySelectorAll(".tab");
+    const panels = document.querySelectorAll(".panel");
+    const actionButtons = document.querySelectorAll(".calculate-btn");
 
-let total = m * meses;
-r2.innerText = "Total ahorrado: $" + total;
-}
+    tabs.forEach((tab) => {
+      tab.addEventListener("click", () => {
+        const target = tab.dataset.panel;
 
-// meta
-function metaCalc(){
-let m = parseFloat(meta.value);
-let meses = parseFloat(mesesMeta.value);
+        tabs.forEach((item) => {
+          const isActive = item === tab;
+          item.classList.toggle("active", isActive);
+          item.setAttribute("aria-selected", isActive ? "true" : "false");
+        });
 
-let mensual = m / meses;
-r3.innerText = "Debes ahorrar: $" + mensual.toFixed(2) + " al mes";
-}
+        panels.forEach((panel) => {
+          panel.classList.toggle("active", panel.id === target);
+        });
+      });
+    });
 
-// deuda
-function deudaCalc(){
-let d = parseFloat(deuda.value);
-let p = parseFloat(pago.value);
+    actionButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const action = button.dataset.action;
 
-let meses = d / p;
-r4.innerText = "Terminarás en: " + Math.ceil(meses) + " meses";
-}
+        if (action === "compound") calculateCompound();
+        if (action === "saving") calculateSaving();
+        if (action === "goal") calculateGoal();
+        if (action === "debt") calculateDebt();
+      });
+    });
 
-</script>
+    function value(id) {
+      return Number.parseFloat(document.getElementById(id).value);
+    }
 
+    function showResult(id, message, isError = false) {
+      const result = document.getElementById(id);
+      result.textContent = message;
+      result.classList.toggle("error", isError);
+    }
+
+    function invalid(...numbers) {
+      return numbers.some((number) => Number.isNaN(number) || number < 0);
+    }
+
+    function calculateCompound() {
+      const capital = value("capital");
+      const rate = value("tasa") / 100;
+      const years = value("years");
+
+      if (invalid(capital, rate, years)) {
+        showResult("r1", "Completa capital, tasa y años con valores válidos.", true);
+        return;
+      }
+
+      const total = capital * Math.pow(1 + rate, years);
+      const profit = total - capital;
+      showResult("r1", `Resultado: ${formatter.format(total)}. Ganancia estimada: ${formatter.format(profit)}.`);
+    }
+
+    function calculateSaving() {
+      const monthly = value("monthlySaving");
+      const months = value("savingMonths");
+
+      if (invalid(monthly, months)) {
+        showResult("r2", "Completa ahorro mensual y meses con valores válidos.", true);
+        return;
+      }
+
+      const total = monthly * months;
+      showResult("r2", `Total ahorrado: ${formatter.format(total)} en ${months} meses.`);
+    }
+
+    function calculateGoal() {
+      const goal = value("goalAmount");
+      const months = value("goalMonths");
+
+      if (invalid(goal, months) || months === 0) {
+        showResult("r3", "Completa meta y meses con valores válidos.", true);
+        return;
+      }
+
+      const monthly = goal / months;
+      showResult("r3", `Debes ahorrar ${formatter.format(monthly)} al mes.`);
+    }
+
+    function calculateDebt() {
+      const debt = value("debtAmount");
+      const payment = value("monthlyPayment");
+
+      if (invalid(debt, payment) || payment === 0) {
+        showResult("r4", "Completa deuda y pago mensual con valores válidos.", true);
+        return;
+      }
+
+      const months = Math.ceil(debt / payment);
+      showResult("r4", `Terminarás de pagar en aproximadamente ${months} meses.`);
+    }
+  </script>
 </body>
 </html>
