@@ -6,7 +6,9 @@
   <title>Evaluación Financiera | American Finance</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap">
+  <!-- Librería para las gráficas -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.8/dist/chart.umd.min.js"></script>
 
   <style>
     :root {
@@ -47,6 +49,8 @@
 
     button {
       font: inherit;
+      border: none;
+      cursor: pointer;
     }
 
     .grid-bg {
@@ -102,6 +106,7 @@
       }
     }
 
+    /* === MENÚ TAL CUAL LO TENÍAS === */
     .navbar {
       position: sticky;
       top: 0;
@@ -377,6 +382,31 @@
       transition: width 1.2s ease;
     }
 
+    /* === ESTILOS SOLO PARA LAS GRÁFICAS AL FINAL === */
+    .charts-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      margin: 30px 0;
+    }
+    .chart-box {
+      background: #0a0a0a;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    }
+    .chart-title {
+      color: var(--gold);
+      margin-bottom: 15px;
+      font-size: 16px;
+      font-weight: bold;
+    }
+    .chart-wrapper {
+      position: relative;
+      height: 220px;
+      width: 100%;
+    }
     .level-card {
       margin-top: 28px;
       padding: clamp(20px, 4vw, 36px);
@@ -453,29 +483,26 @@
       .restart-btn:hover {
         transform: none;
       }
+
+      .charts-container {
+        grid-template-columns: 1fr;
+      }
     }
 
     @media (prefers-reduced-motion: reduce) {
       * {
         scroll-behavior: auto !important;
         transition: none !important;
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
+        animation: none !important;
       }
     }
   </style>
 </head>
-
 <body>
   <div class="grid-bg"></div>
 
   <div class="particles" aria-hidden="true">
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
-    <span></span>
+    <span></span><span></span><span></span><span></span><span></span><span></span>
   </div>
 
   <header class="navbar">
@@ -520,6 +547,22 @@
 
         <div class="progress-bar" aria-hidden="true">
           <div class="progress" id="progress"></div>
+        </div>
+
+        <!-- ✅ GRÁFICAS AGREGADAS AQUÍ, TAL CUAL PEDISTE -->
+        <div class="charts-container">
+          <div class="chart-box">
+            <h4 class="chart-title">Conocimiento General</h4>
+            <div class="chart-wrapper">
+              <canvas id="chartGeneral"></canvas>
+            </div>
+          </div>
+          <div class="chart-box">
+            <h4 class="chart-title">Fortalezas y Oportunidades</h4>
+            <div class="chart-wrapper">
+              <canvas id="chartTopics"></canvas>
+            </div>
+          </div>
         </div>
 
         <div class="level-card">
@@ -572,15 +615,17 @@
 
     const questions = [
       {
+        topic: "Economía General",
         question: "¿Qué ocurre normalmente cuando un banco central aumenta las tasas de interés?",
         answers: [
           "Aumenta de inmediato el consumo de los hogares",
-          "Disminuye el costo de todos los créditos",
+          "Disminuye el costo ofreciendo todos los créditos",
           "Se encarece el crédito y puede reducirse la inflación"
         ],
         correct: 2
       },
       {
+        topic: "Inversiones",
         question: "¿Qué significa diversificar una inversión?",
         answers: [
           "Invertir todo el dinero en una sola empresa",
@@ -590,6 +635,7 @@
         correct: 1
       },
       {
+        topic: "Finanzas Básicas",
         question: "¿Qué es el interés compuesto?",
         answers: [
           "Ganancia generada sobre capital e intereses acumulados",
@@ -599,6 +645,7 @@
         correct: 0
       },
       {
+        topic: "Contabilidad",
         question: "¿Qué representa un activo?",
         answers: [
           "Algo que puede generar valor económico",
@@ -608,6 +655,7 @@
         correct: 0
       },
       {
+        topic: "Flujo de Caja",
         question: "¿Qué indica un flujo de caja negativo?",
         answers: [
           "Que los ingresos superan los gastos",
@@ -617,6 +665,7 @@
         correct: 1
       },
       {
+        topic: "Economía",
         question: "¿Qué efecto tiene la inflación sobre el dinero?",
         answers: [
           "Aumenta su poder adquisitivo",
@@ -626,6 +675,7 @@
         correct: 1
       },
       {
+        topic: "Mercados",
         question: "¿Qué es un ETF?",
         answers: [
           "Un fondo cotizado que agrupa activos",
@@ -635,6 +685,7 @@
         correct: 0
       },
       {
+        topic: "Liquidez",
         question: "¿Qué significa liquidez financiera?",
         answers: [
           "Capacidad de convertir activos en efectivo",
@@ -644,6 +695,7 @@
         correct: 0
       },
       {
+        topic: "Ciclos Económicos",
         question: "¿Qué suele pasar durante una recesión?",
         answers: [
           "Aumenta fuertemente el crecimiento económico",
@@ -653,6 +705,7 @@
         correct: 1
       },
       {
+        topic: "Patrimonio",
         question: "¿Qué es el patrimonio neto?",
         answers: [
           "Activos menos pasivos",
@@ -662,6 +715,7 @@
         correct: 0
       },
       {
+        topic: "Inversión Largo Plazo",
         question: "¿Qué ventaja tiene el interés compuesto a largo plazo?",
         answers: [
           "Puede generar crecimiento exponencial",
@@ -671,6 +725,7 @@
         correct: 0
       },
       {
+        topic: "Riesgo",
         question: "¿Qué es la volatilidad en los mercados financieros?",
         answers: [
           "Ausencia total de cambios en los precios",
@@ -687,6 +742,8 @@
     const resultBox = document.getElementById("resultBox");
     const alertMessage = document.getElementById("alertMessage");
     const answeredCounter = document.getElementById("answeredCounter");
+
+    let chartGeneral, chartTopics;
 
     function renderQuiz() {
       quiz.innerHTML = "";
@@ -755,11 +812,20 @@
         return;
       }
 
-      const score = questions.reduce((total, item, index) => {
-        return selectedAnswers[index] === item.correct ? total + 1 : total;
-      }, 0);
+      // Calcular resultados por tema
+      const temas = {};
+      let totalCorrect = 0;
 
-      const percentage = Math.round((score / questions.length) * 100);
+      questions.forEach((q, i) => {
+        if (!temas[q.topic]) temas[q.topic] = { total: 0, correct: 0 };
+        temas[q.topic].total++;
+        if (selectedAnswers[i] === q.correct) {
+          temas[q.topic].correct++;
+          totalCorrect++;
+        }
+      });
+
+      const percentage = Math.round((totalCorrect / questions.length) * 100);
       const level = levels[getLevelIndex(percentage)];
 
       document.getElementById("percentage").textContent = `${percentage}%`;
@@ -767,24 +833,94 @@
       document.getElementById("unitName").textContent = `Unidades recomendadas: ${level.units.join(", ")}`;
       document.getElementById("description").textContent = level.description;
 
+      // Dibujar gráficas
+      generarGraficas(percentage, temas);
+
       quizBox.style.display = "none";
       resultBox.style.display = "block";
-      resultBox.scrollIntoView({ behavior: "smooth", block: "start" });
 
       window.setTimeout(() => {
         document.getElementById("progress").style.width = `${percentage}%`;
       }, 120);
+
+      resultBox.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function generarGraficas(porcentajeGeneral, datosTemas) {
+      const etiquetas = Object.keys(datosTemas);
+      const valores = etiquetas.map(tema => Math.round((datosTemas[tema].correct / datosTemas[tema].total) * 100));
+
+      if (chartGeneral) chartGeneral.destroy();
+      if (chartTopics) chartTopics.destroy();
+
+      // Gráfico 1: Porcentaje General
+      const ctx1 = document.getElementById('chartGeneral').getContext('2d');
+      chartGeneral = new Chart(ctx1, {
+        type: 'doughnut',
+        data: {
+          datasets: [{
+            data: [porcentajeGeneral, 100 - porcentajeGeneral],
+            backgroundColor: ['#ffd700', '#1e1e1e'],
+            borderWidth: 0,
+            cutout: '70%'
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false }, tooltip: { enabled: false } },
+          animation: { duration: 1000 }
+        },
+        plugins: [{
+          id: 'textoCentral',
+          afterDatasetsDraw(chart) {
+            const { ctx, chartArea: { width, height } } = chart;
+            ctx.font = 'bold 24px Inter';
+            ctx.fillStyle = '#ffffff';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(`${porcentajeGeneral}%`, width / 2, height / 2);
+          }
+        }]
+      });
+
+      // Gráfico 2: Temas
+      const ctx2 = document.getElementById('chartTopics').getContext('2d');
+      chartTopics = new Chart(ctx2, {
+        type: 'bar',
+        data: {
+          labels: etiquetas,
+          datasets: [{
+            label: 'Nivel (%)',
+            data: valores,
+            backgroundColor: valores.map(v => v > 60 ? '#00ff9d' : v > 30 ? '#ffd700' : '#ff4444'),
+            borderRadius: 4,
+            barThickness: 12
+          }]
+        },
+        options: {
+          indexAxis: 'y',
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { display: false } },
+          scales: {
+            x: { max: 100, grid: { color: '#333' }, ticks: { color: '#aaa' } },
+            y: { grid: { display: false }, ticks: { color: '#fff' } }
+          },
+          animation: { duration: 1200 }
+        }
+      });
     }
 
     function restartQuiz() {
       selectedAnswers.fill(null);
-      document.getElementById("progress").style.width = "0";
       resultBox.style.display = "none";
       quizBox.style.display = "block";
       alertMessage.style.display = "none";
+      document.getElementById("progress").style.width = "0";
       renderQuiz();
       updateCounter();
-      quizBox.scrollIntoView({ behavior: "smooth", block: "start" });
+      quizBox.scrollIntoView({ behavior: "smooth" });
     }
 
     document.getElementById("backButton").addEventListener("click", () => {
