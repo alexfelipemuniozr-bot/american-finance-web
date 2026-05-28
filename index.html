@@ -59,6 +59,7 @@
     img {
       display: block;
       max-width: 100%;
+      object-fit: cover;
     }
 
     .particles {
@@ -94,11 +95,9 @@
         transform: translateY(0) scale(0.6);
         opacity: 0;
       }
-
       20% {
         opacity: 0.58;
       }
-
       100% {
         transform: translateY(-120vh) scale(1.5);
         opacity: 0;
@@ -210,12 +209,83 @@
       width: 100%;
     }
 
-    .auth {
-      display: flex;
-      gap: 10px;
+    /* === NUEVO: Estilos para el botón de Ajustes y menú desplegable === */
+    .settings-container {
+      position: relative;
     }
 
-    .auth-link,
+    .settings-button {
+      width: 44px;
+      height: 44px;
+      border: 1px solid var(--line-strong);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.045);
+      color: var(--gold);
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .settings-button:hover {
+      background: rgba(255, 215, 0, 0.12);
+      transform: rotate(45deg);
+      box-shadow: 0 0 12px rgba(255, 215, 0, 0.2);
+    }
+
+    .dropdown-menu {
+      position: absolute;
+      top: 52px;
+      right: 0;
+      min-width: 160px;
+      padding: 8px 0;
+      border: 1px solid var(--line-strong);
+      border-radius: 14px;
+      background: rgba(10, 10, 10, 0.95);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(10px);
+      transition: all 0.3s ease;
+      z-index: 100;
+    }
+
+    .settings-container:hover .dropdown-menu {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .dropdown-menu a {
+      display: block;
+      padding: 12px 18px;
+      color: var(--text);
+      font-size: 14px;
+      font-weight: 600;
+      transition: all 0.2s ease;
+    }
+
+    .dropdown-menu a:first-child {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .dropdown-menu .login-option:hover {
+      background: rgba(255, 215, 0, 0.08);
+      color: var(--gold);
+      padding-left: 22px;
+    }
+
+    .dropdown-menu .register-option:hover {
+      background: linear-gradient(45deg, var(--gold-dark), var(--gold));
+      color: #000;
+      padding-left: 22px;
+    }
+    /* === FIN NUEVOS ESTILOS === */
+
+
     .cta-button,
     .course-button {
       min-height: 44px;
@@ -223,39 +293,6 @@
       border-radius: 13px;
       font-weight: 850;
       transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, color 0.2s ease;
-    }
-
-    .auth-link {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 10px 16px;
-      white-space: nowrap;
-    }
-
-    .login {
-      border: 1px solid var(--line-strong);
-      color: var(--gold);
-      background: transparent;
-    }
-
-    .login:hover {
-      color: #050505;
-      background: var(--gold);
-    }
-
-    .register,
-    .primary,
-    .course-button {
-      color: #050505;
-      background: linear-gradient(45deg, var(--gold-dark), var(--gold));
-    }
-
-    .register:hover,
-    .primary:hover,
-    .course-button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 16px 40px rgba(255, 215, 0, 0.26);
     }
 
     .hero {
@@ -267,6 +304,7 @@
       min-height: calc(100vh - 80px);
       padding: clamp(70px, 8vw, 105px) clamp(18px, 5vw, 60px);
       overflow: hidden;
+      background-attachment: fixed;
     }
 
     .hero::before {
@@ -275,7 +313,7 @@
       inset: 0;
       z-index: -1;
       background:
-        linear-gradient(rgba(0, 0, 0, 0.78), rgba(0, 0, 0, 0.86)),
+        linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.75)),
         url("https://images.unsplash.com/photo-1639322537228-f710d846310a?auto=format&fit=crop&w=1800&q=80");
       background-size: cover;
       background-position: center;
@@ -347,6 +385,8 @@
       color: #050505;
       background: var(--gold);
       transform: translateY(-2px);
+
+transform: translateY(-2px);
     }
 
     .ai {
@@ -596,7 +636,6 @@
         opacity: 0;
         transform: translateY(42px);
       }
-
       to {
         opacity: 1;
         transform: translateY(0);
@@ -653,47 +692,29 @@
         background: rgba(255, 215, 0, 0.08);
       }
 
-      .auth {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 10px;
+      /* Ajustes para el menú móvil */
+      .settings-container {
+        width: 100%;
+        margin-top: 8px;
         padding-top: 12px;
         border-top: 1px solid rgba(255, 215, 0, 0.12);
       }
 
-      .auth-link {
+      .settings-button {
         width: 100%;
+        border-radius: 12px;
       }
 
-      .hero {
-        grid-template-columns: 1fr;
-        min-height: auto;
-        text-align: center;
-      }
-
-      .hero-text {
-        margin: 0 auto;
-      }
-
-      .hero p {
-        margin-left: auto;
-        margin-right: auto;
-      }
-
-      .buttons {
-        justify-content: center;
-      }
-
-      .hero-panel {
-        max-width: 620px;
-        margin: 0 auto;
-      }
-
-      .market-cards,
-      .course-grid,
-      .stats,
-      .benefit-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+      .dropdown-menu {
+        position: static;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+        box-shadow: none;
+        border: none;
+        background: transparent;
+        margin-top: 8px;
+        padding: 0;
       }
     }
 
@@ -711,10 +732,6 @@
 
       .logo {
         white-space: normal;
-      }
-
-      .auth {
-        grid-template-columns: 1fr;
       }
 
       .hero {
@@ -819,19 +836,27 @@
 
     <div class="nav-menu">
       <nav class="nav-links" aria-label="Navegación principal">
-        <a href="index.html">Inicio</a>
-        <a href="cursos.html">Cursos</a>
-        <a href="recursos.html">Recursos</a>
-        <a href="simulador.html">Simulador</a>
-        <a href="calculadora.html">Calculadora</a>
-        <a href="comunidad.html">Comunidad</a>
-        <a href="Mercados.html">Mercados</a>
+        <a href="#inicio">Inicio</a>
+        <a href="#cursos">Cursos</a>
+        <a href="#recursos">Recursos</a>
+        <a href="#simulador">Simulador</a>
+        <a href="#calculadora">Calculadora</a>
+        <a href="#comunidad">Comunidad</a>
+        <a href="#mercados">Mercados</a>
       </nav>
 
-      <div class="auth">
-        <a class="auth-link login" href="home.html">Iniciar sesión</a>
-        <a class="auth-link register" href="register.html">Registrarse</a>
+      <!-- === CAMBIO AQUÍ: Reemplazado el bloque de botones por el nuevo contenedor de ajustes === -->
+      <div class="settings-container">
+        <div class="settings-button" aria-label="Ajustes y cuenta">
+          ⚙️
+        </div>
+        <div class="dropdown-menu">
+          <a href="#iniciar" class="login-option">🔑 Iniciar sesión</a>
+          <a href="#registrar" class="register-option">📝 Registrarse</a>
+        </div>
       </div>
+      <!-- === FIN CAMBIO === -->
+
     </div>
   </header>
 
@@ -852,10 +877,10 @@
         </p>
 
         <div class="buttons">
-          <a class="cta-button primary" href="cursos.html">Explorar cursos</a>
-          <a class="cta-button" href="Mercados.html">Ver mercados</a>
-          <a class="cta-button" href="Evaluación.html">Evaluación</a>
-          <a class="cta-button ai" href="IA.html">Asistente IA</a>
+          <a class="cta-button primary" href="#cursos">Explorar cursos</a>
+          <a class="cta-button" href="#mercados">Ver mercados</a>
+          <a class="cta-button" href="#evaluacion">Evaluación</a>
+          <a class="cta-button ai" href="#ia">Asistente IA</a>
         </div>
       </div>
 
@@ -876,7 +901,6 @@
             <span>Portafolio</span>
             <strong>+18.4%</strong>
           </div>
-
           <div class="metric">
             <span>Riesgo</span>
             <strong>Medio</strong>
@@ -885,7 +909,7 @@
       </aside>
     </section>
 
-    <section class="section market-section">
+    <section class="section market-section" id="mercados">
       <h2 class="section-title">Mercados <span>Principales</span></h2>
 
       <div class="market-cards">
@@ -893,17 +917,14 @@
           <h2>BTC</h2>
           <p class="up">+4.12%</p>
         </article>
-
         <article class="market-card">
           <h2>ETH</h2>
           <p class="up">+2.74%</p>
         </article>
-
         <article class="market-card">
           <h2>S&amp;P 500</h2>
           <p class="down">-0.36%</p>
         </article>
-
         <article class="market-card">
           <h2>NASDAQ</h2>
           <p class="up">+1.18%</p>
@@ -922,7 +943,6 @@
             <p>Organiza ingresos, gastos, deudas y metas para construir una base financiera sólida.</p>
           </div>
         </article>
-
         <article class="benefit-card">
           <img src="https://images.unsplash.com/photo-1642790106117-e829e14a795f?auto=format&fit=crop&w=900&q=80" alt="Análisis de mercado en pantalla">
           <div class="card-content">
@@ -930,7 +950,6 @@
             <p>Comprende riesgo, diversificación, activos y estrategias antes de invertir.</p>
           </div>
         </article>
-
         <article class="benefit-card">
           <img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=900&q=80" alt="Equipo trabajando en negocio">
           <div class="card-content">
@@ -941,7 +960,7 @@
       </div>
     </section>
 
-    <section class="section courses">
+    <section class="section courses" id="cursos">
       <h2 class="section-title">Cursos <span>Destacados</span></h2>
 
       <div class="course-grid">
@@ -953,7 +972,6 @@
             <a class="course-button" href="cursos.html">Entrar</a>
           </div>
         </article>
-
         <article class="course-card">
           <img src="https://images.unsplash.com/photo-1518186285589-2f7649de83e0?auto=format&fit=crop&w=900&q=80" alt="Tecnología blockchain">
           <div class="course-info">
@@ -962,16 +980,14 @@
             <a class="course-button" href="cursos.html">Entrar</a>
           </div>
         </article>
-
         <article class="course-card">
           <img src="https://images.unsplash.com/photo-1559526324-593bc073d938?auto=format&fit=crop&w=900&q=80" alt="Planificación financiera">
           <div class="course-info">
             <h3>Finanzas Personales</h3>
             <p>Organiza tu dinero y mejora tus hábitos financieros.</p>
-            <a class="course-button" href="cursos.html">Entrar</a>
+            <a class="course-button" href="curs">Entrar</a>
           </div>
         </article>
-
         <article class="course-card">
           <img src="https://images.unsplash.com/photo-1556740749-887f6717d7e4?auto=format&fit=crop&w=900&q=80" alt="Trabajo financiero digital">
           <div class="course-info">
@@ -988,17 +1004,14 @@
         <h2 data-final="+12K">+12K</h2>
         <p>Usuarios activos</p>
       </article>
-
       <article class="stat">
         <h2 data-final="95%">95%</h2>
         <p>Satisfacción</p>
       </article>
-
       <article class="stat">
         <h2 data-final="+320">+320</h2>
         <p>Lecciones</p>
       </article>
-
       <article class="stat">
         <h2 data-final="24/7">24/7</h2>
         <p>Acceso online</p>
