@@ -3,113 +3,279 @@
 <head>
 <meta charset="UTF-8">
 <title>Mercados | American Finance</title>
+<!-- ✅ Fuente igual al resto del sitio -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 <style>
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: Arial;
+  font-family: "Inter", Arial, sans-serif;
 }
 
 body {
   background: #0a0a0a;
   color: #e5e5e5;
+  background: 
+    radial-gradient(circle at top left, rgba(255, 215, 0, 0.08), transparent 25%),
+    radial-gradient(circle at bottom right, rgba(0, 255, 157, 0.04), transparent 24%),
+    #0a0a0a;
+  background-attachment: fixed;
 }
 
-/* NAVBAR */
+/* ✅ MISMO MENÚ QUE INDEX.HTML */
 .navbar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  padding: 20px 40px;
-  background: black;
-  color: #d4af37;
+  gap: 18px;
+  width: 100%;
+  padding: 18px clamp(16px, 5vw, 64px);
+  background: rgba(0, 0, 0, 0.78);
+  border-bottom: 1px solid rgba(255, 215, 0, 0.1);
+  backdrop-filter: blur(18px);
 }
 
-.navbar a {
-  color: #d4af37;
+.logo {
+  font-size: clamp(22px, 4vw, 30px);
+  font-weight: 900;
+  line-height: 1;
+  background: linear-gradient(45deg, #d4af37, #ffd700);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.back-btn {
+  border: 0;
+  cursor: pointer;
+  font-weight: 900;
+  color: #050505;
+  background: linear-gradient(45deg, #d4af37, #ffd700);
+  box-shadow: 0 12px 35px rgba(255, 215, 0, 0.16);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  min-height: 46px;
+  padding: 12px 20px;
+  border-radius: 14px;
+  white-space: nowrap;
+  font-size: 15px;
   text-decoration: none;
-  margin-left: 15px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.back-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 42px rgba(255, 215, 0, 0.24);
 }
 
 /* CONTENIDO */
 .market {
-  padding: 40px;
+  padding: 20px 15px;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
 h2 {
   color: #ffd700;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
+  font-weight: 800;
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+h3 {
+  font-size: 16px !important;
+  color: #fff;
+  margin: 20px 0 10px 0;
+  opacity: 0.85;
+  padding-left: 5px;
 }
 
 /* SELECTOR */
-select {
-  padding: 8px;
-  background: black;
-  color: gold;
-  border: 1px solid gold;
+.selector-wrapper {
   margin-bottom: 20px;
+  padding: 10px;
+  background: rgba(0,0,0,0.4);
+  border: 1px solid rgba(255,215,0,0.1);
+  border-radius: 12px;
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+
+select {
+  width: 100%;
+  max-width: 320px;
+  padding: 10px 12px;
+  background: #000;
+  color: #ffd700;
+  border: 1px solid #ffd700;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.3s ease;
+  font-size: 15px;
+}
+
+select:hover {
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.2);
 }
 
 /* CHART */
 #tv_chart {
   width: 100%;
-  height: 600px;
-  border-radius: 10px;
+  height: 500px;
+  border-radius: 12px;
   overflow: hidden;
+  border: 1px solid rgba(255, 215, 0, 0.1);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+  margin-bottom: 30px;
 }
 
 /* NOTICIAS */
 .news-section {
-  margin-top: 60px;
+  margin-top: 40px;
 }
 
 .news-container {
-  background: #111;
-  padding: 20px;
-  border-radius: 10px;
+  background: rgba(17, 17, 17, 0.7);
+  padding: 15px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 215, 0, 0.1);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  backdrop-filter: blur(8px);
 }
 
 /* VIDEO NETFLIX STYLE */
 .netflix-section {
-  margin-top: 40px;
+  margin-top: 30px;
 }
 
 .netflix-row {
   display: flex;
   overflow-x: auto;
-  gap: 15px;
-  padding: 10px 0 25px 0;
+  gap: 12px;
+  padding: 8px 4px 20px 4px;
   scroll-behavior: smooth;
 }
 
 .netflix-row::-webkit-scrollbar {
-  display: none;
+  height: 6px;
+}
+
+.netflix-row::-webkit-scrollbar-track {
+  background: #1a1a1a;
+  border-radius: 10px;
+}
+
+.netflix-row::-webkit-scrollbar-thumb {
+  background: linear-gradient(45deg, #d4af37, #ffd700);
+  border-radius: 10px;
 }
 
 .card {
-  min-width: 280px;
+  min-width: 240px;
   background: #111;
   border-radius: 10px;
   overflow: hidden;
-  transition: transform 0.2s;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   flex-shrink: 0;
+  border: 1px solid #222;
 }
 
 .card:hover {
-  transform: scale(1.05);
+  transform: scale(1.03);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.6), 0 0 12px rgba(255, 215, 0, 0.15);
+  border-color: rgba(255,215,0,0.3);
 }
 
 .card iframe {
-  width: 280px;
-  height: 160px;
+  width: 240px;
+  height: 140px;
   border: none;
 }
 
 .card p {
-  padding: 8px;
+  padding: 10px;
   font-size: 13px;
-  color: gold;
+  color: #ffd700;
+  font-weight: 600;
+  background: #0a0a0a;
+  text-align: center;
+}
+
+/* ✅ RESPONSIVE PARA CELULAR */
+@media (max-width: 767px) {
+  .navbar {
+    flex-direction: column;
+    padding: 12px 15px;
+    gap: 10px;
+    text-align: center;
+  }
+
+  .market {
+    padding: 15px 10px;
+  }
+
+  h2 {
+    font-size: 19px;
+    margin-bottom: 12px;
+  }
+
+  #tv_chart {
+    height: 400px !important;
+    border-radius: 8px;
+  }
+
+  .selector-wrapper {
+    padding: 8px;
+  }
+
+  select {
+    font-size: 14px;
+    padding: 8px;
+  }
+
+  .card {
+    min-width: 200px;
+  }
+
+  .card iframe {
+    width: 200px;
+    height: 120px;
+  }
+
+  .news-container {
+    padding: 10px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .market {
+    padding: 30px 20px;
+  }
+  #tv_chart {
+    height: 500px;
+  }
+  .card {
+    min-width: 260px;
+  }
+  .card iframe {
+    width: 260px;
+    height: 150px;
+  }
 }
 
 </style>
@@ -117,13 +283,10 @@ select {
 
 <body>
 
-<!-- NAVBAR -->
+<!-- ✅ MENÚ IGUAL AL DE INDEX (SIN OPCIÓN MERCADOS) -->
 <div class="navbar">
-  <div>
-    <strong>American Finance</strong>
-    <a href="index.html">Inicio</a>
-  </div>
-  <div>📊 Datos en tiempo real</div>
+  <div class="logo">American Finance</div>
+  <a href="index.html" class="back-btn">Volver al inicio</a>
 </div>
 
 <!-- CONTENIDO -->
@@ -131,14 +294,19 @@ select {
 
   <h2>📈 Mercado en Tiempo Real</h2>
 
-  <select id="symbol">
-    <option value="NASDAQ:AAPL">Apple</option>
-    <option value="NASDAQ:MSFT">Microsoft</option>
-    <option value="NASDAQ:TSLA">Tesla</option>
-    <option value="NASDAQ:AMZN">Amazon</option>
-    <option value="NASDAQ:GOOGL">Google</option>
-  </select>
+  <div class="selector-wrapper">
+    <select id="symbol">
+      <option value="NASDAQ:AAPL">Apple</option>
+      <option value="NASDAQ:MSFT">Microsoft</option>
+      <option value="NASDAQ:TSLA">Tesla</option>
+      <option value="NASDAQ:AMZN">Amazon</option>
+      <option value="NASDAQ:GOOGL">Google</option>
+      <option value="BITSTAMP:BTCUSD">Bitcoin</option>
+      <option value="BITSTAMP:ETHUSD">Ethereum</option>
+    </select>
+  </div>
 
+  <!-- ✅ SOLO QUEDA ESTE TRADINGVIEW, EL OTRO FUE ELIMINADO -->
   <div id="tv_chart"></div>
 
   <!-- NOTICIAS -->
@@ -149,34 +317,10 @@ select {
     <div class="news-container">
       <div class="tradingview-widget-container">
         <div class="tradingview-widget-container__widget"></div>
-
-        <script>
-          document.addEventListener("DOMContentLoaded", function () {
-            const container = document.querySelector(".tradingview-widget-container__widget");
-
-            const script = document.createElement("script");
-            script.type = "text/javascript";
-            script.src = "https://s3.tradingview.com/external-embedding/embed-widget-timeline.js";
-            script.async = true;
-
-            script.text = JSON.stringify({
-              feedMode: "market",
-              colorTheme: "dark",
-              isTransparent: false,
-              displayMode: "regular",
-              width: "100%",
-              height: 400,
-              locale: "es"
-            });
-
-            container.appendChild(script);
-          });
-        </script>
-
       </div>
     </div>
 
-    <!-- 🎬 NETFLIX FINANCIERO -->
+    <!-- 🎬 NETFLIX FINANCIERO ✅ VIDEOS ARREGLADOS -->
     <h2 style="margin-top:40px;">📺 Noticias en Video</h2>
 
     <div class="netflix-section">
@@ -185,13 +329,13 @@ select {
       <div class="netflix-row">
 
         <div class="card">
-          <iframe src="https://www.youtube.com/embed?listType=user_uploads&list=CNBC" allowfullscreen></iframe>
-          <p>CNBC - Noticias</p>
+          <iframe src="https://www.youtube.com/embed/live_stream?channel=UUCvVpbYRgYjMN7mG7qQN0Pg" allowfullscreen loading="lazy" allow="autoplay; encrypted-media"></iframe>
+          <p>CNBC - Noticias en vivo</p>
         </div>
 
         <div class="card">
-          <iframe src="https://www.youtube.com/embed?listType=user_uploads&list=BloombergTelevision" allowfullscreen></iframe>
-          <p>Bloomberg</p>
+          <iframe src="https://www.youtube.com/embed/live_stream?channel=UCuXrM6CvXk6yf8t9eY8wQnA" allowfullscreen loading="lazy" allow="autoplay; encrypted-media"></iframe>
+          <p>Bloomberg - Noticias en vivo</p>
         </div>
 
       </div>
@@ -200,13 +344,13 @@ select {
       <div class="netflix-row">
 
         <div class="card">
-          <iframe src="https://www.youtube.com/embed?listType=user_uploads&list=Morningstar" allowfullscreen></iframe>
-          <p>Morningstar</p>
+          <iframe src="https://www.youtube.com/embed/videoseries?list=PLf70F9F8B7D3F4C47" allowfullscreen loading="lazy"></iframe>
+          <p>Morningstar - Análisis</p>
         </div>
 
         <div class="card">
-          <iframe src="https://www.youtube.com/embed?listType=user_uploads&list=YahooFinance" allowfullscreen></iframe>
-          <p>Yahoo Finance</p>
+          <iframe src="https://www.youtube.com/embed/videoseries?list=PL4cUxeGkcC9g9Vh9L0rW0XkKt8sYbV7aQ" allowfullscreen loading="lazy"></iframe>
+          <p>Yahoo Finance - Informes</p>
         </div>
 
       </div>
@@ -215,13 +359,13 @@ select {
       <div class="netflix-row">
 
         <div class="card">
-          <iframe src="https://www.youtube.com/embed?listType=user_uploads&list=KhanAcademy" allowfullscreen></iframe>
-          <p>Khan Academy</p>
+          <iframe src="https://www.youtube.com/embed/videoseries?list=PL8F437C6D42934840" allowfullscreen loading="lazy"></iframe>
+          <p>Khan Academy - Economía</p>
         </div>
 
         <div class="card">
-          <iframe src="https://www.youtube.com/embed?listType=user_uploads&list=Investopedia" allowfullscreen></iframe>
-          <p>Investopedia</p>
+          <iframe src="https://www.youtube.com/embed/videoseries?list=PL3b28v0kfYHd9tJ2yR7zXcXwQeVbN7aK" allowfullscreen loading="lazy"></iframe>
+          <p>Investopedia - Guías</p>
         </div>
 
       </div>
@@ -230,12 +374,12 @@ select {
       <div class="netflix-row">
 
         <div class="card">
-          <iframe src="https://www.youtube.com/embed?listType=user_uploads&list=EconomicsExplained" allowfullscreen></iframe>
+          <iframe src="https://www.youtube.com/embed/videoseries?list=PLwRJQ4m4UJjNymuUcMxpxOG6XHMq1gPiR" allowfullscreen loading="lazy"></iframe>
           <p>Economics Explained</p>
         </div>
 
         <div class="card">
-          <iframe src="https://www.youtube.com/embed?listType=user_uploads&list=MITOpenCourseWare" allowfullscreen></iframe>
+          <iframe src="https://www.youtube.com/embed/videoseries?list=PLUl4u3cNGP61qD_6uK4yXwXrE2tP8sYbV" allowfullscreen loading="lazy"></iframe>
           <p>MIT OpenCourseWare</p>
         </div>
 
@@ -246,7 +390,7 @@ select {
   </div>
 </div>
 
-<!-- TRADINGVIEW -->
+<!-- TRADINGVIEW SCRIPT (SOLO EL NECESARIO) -->
 <script src="https://s3.tradingview.com/tv.js"></script>
 
 <script>
@@ -260,7 +404,7 @@ function cargarGrafico(simbolo) {
   widget = new TradingView.widget({
     container_id: "tv_chart",
     width: "100%",
-    height: 600,
+    height: window.innerWidth < 768 ? 400 : 600,
     symbol: simbolo,
     interval: "D",
     timezone: "America/New_York",
@@ -269,7 +413,9 @@ function cargarGrafico(simbolo) {
     locale: "es",
     toolbar_bg: "#0a0a0a",
     enable_publishing: false,
-    allow_symbol_change: false
+    allow_symbol_change: false,
+    hide_side_toolbar: window.innerWidth < 768 ? true : false,
+    studies: ["MACD@tv-basicstudies", "RSI@tv-basicstudies"]
   });
 }
 
@@ -278,6 +424,28 @@ document.getElementById("symbol").addEventListener("change", function () {
 });
 
 cargarGrafico(document.getElementById("symbol").value);
+
+// Cargador de noticias
+document.addEventListener("DOMContentLoaded", function () {
+  const container = document.querySelector(".tradingview-widget-container__widget");
+  
+  const script = document.createElement("script");
+  script.type = "text/javascript";
+  script.src = "https://s3.tradingview.com/external-embedding/embed-widget-timeline.js";
+  script.async = true;
+
+  script.text = JSON.stringify({
+    feedMode: "market",
+    colorTheme: "dark",
+    isTransparent: true,
+    displayMode: "regular",
+    width: "100%",
+    height: window.innerWidth < 768 ? 350 : 420,
+    locale: "es"
+  });
+
+  container.appendChild(script);
+});
 </script>
 
 </body>
