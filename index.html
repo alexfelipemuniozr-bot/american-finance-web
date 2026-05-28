@@ -1,0 +1,1279 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>American Finance | Futuristic UI</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+    --bg:#050505;
+    --card:#111111;
+    --card2:#171717;
+    --gold:#ffd700;
+    --gold2:#d4af37;
+    --text:#f5f5f5;
+    --muted:#b8b8b8;
+    --border:#242424;
+    --green:#00ff9d;
+    --red:#ff5b5b;
+    --cyan:#00cfff;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Inter',sans-serif;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:
+    radial-gradient(circle at top left, rgba(255,215,0,0.08), transparent 25%),
+    radial-gradient(circle at bottom right, rgba(255,215,0,0.05), transparent 25%),
+    var(--bg);
+
+    color:var(--text);
+    overflow-x:hidden;
+}
+
+/* SCROLLBAR */
+
+::-webkit-scrollbar{
+    width:10px;
+}
+
+::-webkit-scrollbar-track{
+    background:#080808;
+}
+
+::-webkit-scrollbar-thumb{
+    background:linear-gradient(var(--gold2), var(--gold));
+    border-radius:20px;
+}
+
+/* PARTICLES */
+
+.particles{
+    position:fixed;
+    width:100%;
+    height:100%;
+    top:0;
+    left:0;
+    overflow:hidden;
+    z-index:-1;
+}
+
+.particles span{
+    position:absolute;
+    width:4px;
+    height:4px;
+    background:gold;
+    border-radius:50%;
+    opacity:.4;
+    animation:float linear infinite;
+}
+
+.particles span:nth-child(1){left:10%;animation-duration:10s;}
+.particles span:nth-child(2){left:20%;animation-duration:18s;}
+.particles span:nth-child(3){left:35%;animation-duration:14s;}
+.particles span:nth-child(4){left:50%;animation-duration:20s;}
+.particles span:nth-child(5){left:70%;animation-duration:12s;}
+.particles span:nth-child(6){left:85%;animation-duration:16s;}
+.particles span:nth-child(7){left:95%;animation-duration:11s;}
+
+@keyframes float{
+
+    0%{
+        transform:translateY(110vh) scale(0);
+        opacity:0;
+    }
+
+    20%{
+        opacity:.6;
+    }
+
+    100%{
+        transform:translateY(-120vh) scale(1.5);
+        opacity:0;
+    }
+
+}
+
+/* NAVBAR */
+
+.navbar{
+    position:sticky;
+    top:0;
+    z-index:999;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:18px 60px;
+    backdrop-filter:blur(15px);
+    background:rgba(0,0,0,.7);
+    border-bottom:1px solid rgba(255,215,0,.08);
+}
+
+.logo{
+    font-size:28px;
+    font-weight:800;
+    background:linear-gradient(45deg,var(--gold2),var(--gold));
+    background-clip:text;
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+.navbar nav{
+    display:flex;
+    gap:25px;
+}
+
+.navbar nav a{
+    text-decoration:none;
+    color:#d7d7d7;
+    position:relative;
+    font-weight:500;
+}
+
+.navbar nav a::after{
+    content:"";
+    position:absolute;
+    left:0;
+    bottom:-7px;
+    width:0%;
+    height:2px;
+    background:gold;
+    transition:.3s;
+}
+
+.navbar nav a:hover{
+    color:gold;
+}
+
+.navbar nav a:hover::after{
+    width:100%;
+}
+
+.auth{
+    display:flex;
+    gap:10px;
+}
+
+.auth button{
+    padding:10px 18px;
+    border:none;
+    border-radius:12px;
+    cursor:pointer;
+    font-weight:700;
+    transition:.3s;
+}
+
+.login{
+    background:transparent;
+    border:1px solid var(--gold2);
+    color:gold;
+}
+
+.login:hover{
+    background:gold;
+    color:black;
+    box-shadow:0 0 20px rgba(255,215,0,.5);
+}
+
+.register{
+    background:linear-gradient(45deg,var(--gold2),var(--gold));
+    color:black;
+}
+
+.register:hover{
+    transform:translateY(-3px);
+    box-shadow:0 0 25px rgba(255,215,0,.5);
+}
+
+/* HERO */
+
+.hero{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:80px 60px;
+    position:relative;
+}
+
+.hero::before{
+    content:"";
+    position:absolute;
+    inset:0;
+
+    background:
+    linear-gradient(rgba(0,0,0,.82), rgba(0,0,0,.85)),
+    url("https://images.unsplash.com/photo-1639322537228-f710d846310a?auto=format&fit=crop&w=1600&q=80");
+
+    background-size:cover;
+    background-position:center;
+
+    z-index:-1;
+}
+
+.hero-text{
+    max-width:650px;
+    animation:fadeUp 1s ease;
+}
+
+.hero-text h1{
+    font-size:72px;
+    line-height:1.05;
+    margin-bottom:25px;
+    font-weight:800;
+}
+
+.hero-text h1 span{
+    background:linear-gradient(45deg,var(--gold2),var(--gold));
+    background-clip:text;
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+.hero-text p{
+    color:#d0d0d0;
+    font-size:20px;
+    line-height:1.7;
+    margin-bottom:35px;
+}
+
+/* BUTTONS */
+
+.buttons{
+    display:flex;
+    gap:15px;
+    flex-wrap:wrap;
+}
+
+.buttons button{
+    padding:15px 28px;
+    border:none;
+    border-radius:14px;
+    cursor:pointer;
+    font-size:16px;
+    font-weight:700;
+    transition:.3s;
+}
+
+.primary{
+    background:linear-gradient(45deg,var(--gold2),var(--gold));
+    color:black;
+}
+
+.primary:hover{
+    transform:translateY(-4px) scale(1.03);
+    box-shadow:0 0 35px rgba(255,215,0,.5);
+}
+
+.secondary{
+    background:rgba(255,255,255,.05);
+    border:1px solid rgba(255,215,0,.25);
+    color:gold;
+    backdrop-filter:blur(10px);
+}
+
+.secondary:hover{
+    background:gold;
+    color:black;
+}
+
+/* NUEVO BOTON EVALUACION */
+
+.evaluation-btn{
+
+    background:
+    linear-gradient(45deg,var(--cyan),var(--green));
+
+    color:black;
+
+    font-weight:800;
+
+    position:relative;
+
+    overflow:hidden;
+
+    box-shadow:
+    0 0 20px rgba(0,255,157,.25);
+
+}
+
+.evaluation-btn::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+    linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,255,255,.4),
+        transparent
+    );
+
+    transform:translateX(-100%);
+
+}
+
+.evaluation-btn:hover::before{
+
+    animation:shine 1s linear;
+
+}
+
+.evaluation-btn:hover{
+
+    transform:translateY(-4px) scale(1.05);
+
+    box-shadow:
+    0 0 35px rgba(0,255,157,.45);
+
+}
+
+@keyframes shine{
+
+    100%{
+        transform:translateX(200%);
+    }
+
+}
+/* BOTON IA FUTURISTA */
+
+.ai-btn{
+
+    background:
+    linear-gradient(
+        45deg,
+        #00cfff,
+        #00ff9d
+    );
+
+    color:black;
+
+    font-weight:800;
+
+    position:relative;
+
+    overflow:hidden;
+
+    border:none;
+
+    padding:15px 28px;
+
+    border-radius:14px;
+
+    cursor:pointer;
+
+    font-size:16px;
+
+    transition:0.35s;
+
+    box-shadow:
+    0 0 20px rgba(0,255,200,.25);
+
+}
+
+.ai-btn::before{
+
+    content:"";
+
+    position:absolute;
+
+    top:0;
+    left:-120%;
+
+    width:100%;
+    height:100%;
+
+    background:
+    linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,255,255,.5),
+        transparent
+    );
+
+}
+
+.ai-btn:hover::before{
+
+    animation:aiShine 1s linear;
+
+}
+
+.ai-btn:hover{
+
+    transform:
+    translateY(-4px)
+    scale(1.05);
+
+    box-shadow:
+    0 0 35px rgba(0,255,200,.45),
+    0 0 60px rgba(0,207,255,.25);
+
+}
+
+@keyframes aiShine{
+
+    100%{
+        left:130%;
+    }
+
+}
+/* HERO PANEL */
+
+.hero-panel{
+    width:430px;
+    background:rgba(15,15,15,.75);
+    border:1px solid rgba(255,215,0,.1);
+    border-radius:25px;
+    padding:30px;
+    backdrop-filter:blur(15px);
+    box-shadow:0 0 40px rgba(0,0,0,.5);
+    animation:fadeUp 1.2s ease;
+}
+
+.panel-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:25px;
+}
+
+.live{
+    color:var(--green);
+    font-size:14px;
+}
+
+.graph{
+    background:#0c0c0c;
+    border-radius:18px;
+    height:240px;
+    overflow:hidden;
+    position:relative;
+}
+
+.graph::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+    linear-gradient(to top, rgba(255,215,0,.15), transparent);
+}
+
+.graph svg{
+    width:100%;
+    height:100%;
+}
+
+.graph path{
+    fill:none;
+    stroke:gold;
+    stroke-width:4;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+    filter:drop-shadow(0 0 12px gold);
+    stroke-dasharray:1200;
+    stroke-dashoffset:1200;
+    animation:lineAnim 5s linear infinite alternate;
+}
+
+@keyframes lineAnim{
+
+    to{
+        stroke-dashoffset:0;
+    }
+
+}
+
+/* SECTION TITLE */
+
+.section-title{
+    font-size:42px;
+    text-align:center;
+    margin-bottom:50px;
+}
+
+.section-title span{
+    color:gold;
+}
+
+/* MARKET */
+
+.market-section{
+    padding:100px 60px;
+}
+
+.market-cards{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:25px;
+}
+
+.market-card{
+    background:rgba(18,18,18,.95);
+    border:1px solid rgba(255,215,0,.08);
+    border-radius:22px;
+    padding:30px;
+    position:relative;
+    overflow:hidden;
+    cursor:pointer;
+}
+
+.market-card::before{
+    content:"";
+    position:absolute;
+    width:200%;
+    height:200%;
+    background:radial-gradient(circle, rgba(255,215,0,.15), transparent 60%);
+    top:-60%;
+    left:-60%;
+    opacity:0;
+    transition:.5s;
+}
+
+.market-card:hover::before{
+    opacity:1;
+}
+
+.market-card:hover{
+    transform:translateY(-8px);
+    border-color:rgba(255,215,0,.25);
+    box-shadow:0 0 30px rgba(255,215,0,.12);
+}
+
+.market-card h2{
+    font-size:30px;
+    margin-bottom:10px;
+}
+
+.market-card p{
+    font-size:18px;
+    font-weight:700;
+}
+
+.up{
+    color:var(--green);
+}
+
+.down{
+    color:var(--red);
+}
+
+/* BENEFITS */
+
+.benefits{
+    padding:100px 60px;
+}
+
+.benefit-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:25px;
+}
+
+.card{
+    background:rgba(18,18,18,.95);
+    border-radius:25px;
+    overflow:hidden;
+    border:1px solid rgba(255,215,0,.08);
+    transition:.4s;
+}
+
+.card img{
+    width:100%;
+    height:260px;
+    object-fit:cover;
+}
+
+.card-content{
+    padding:25px;
+}
+
+.card-content h3{
+    margin-bottom:12px;
+    font-size:25px;
+}
+
+.card-content p{
+    color:#cfcfcf;
+    line-height:1.7;
+}
+
+.card:hover{
+    transform:translateY(-10px) scale(1.02);
+    border-color:rgba(255,215,0,.25);
+    box-shadow:0 0 30px rgba(255,215,0,.15);
+}
+
+/* COURSES */
+
+.courses{
+    padding:100px 60px;
+}
+
+.course-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:25px;
+}
+
+.course-card{
+    background:linear-gradient(180deg,#151515,#0e0e0e);
+    border-radius:24px;
+    overflow:hidden;
+    border:1px solid rgba(255,215,0,.08);
+    transition:.4s;
+}
+
+.course-card img{
+    width:100%;
+    height:220px;
+    object-fit:cover;
+}
+
+.course-info{
+    padding:22px;
+}
+
+.course-info h3{
+    margin-bottom:10px;
+}
+
+.course-info p{
+    color:#cfcfcf;
+    font-size:14px;
+    line-height:1.7;
+    margin-bottom:20px;
+}
+
+.course-info button{
+    width:100%;
+    padding:13px;
+    border:none;
+    border-radius:12px;
+    background:linear-gradient(45deg,var(--gold2),var(--gold));
+    font-weight:700;
+    cursor:pointer;
+}
+
+.course-card:hover{
+    transform:translateY(-10px);
+    box-shadow:0 0 35px rgba(255,215,0,.15);
+}
+
+/* STATS */
+
+.stats{
+    padding:100px 60px;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:20px;
+}
+
+.stat{
+    background:rgba(18,18,18,.95);
+    border:1px solid rgba(255,215,0,.08);
+    border-radius:22px;
+    padding:40px;
+    text-align:center;
+}
+
+.stat h2{
+    font-size:48px;
+    color:gold;
+    margin-bottom:12px;
+}
+
+.stat p{
+    color:#d0d0d0;
+}
+
+/* FOOTER */
+
+footer{
+    margin-top:80px;
+    background:black;
+    border-top:1px solid rgba(255,215,0,.08);
+    padding:35px;
+    text-align:center;
+}
+
+footer p{
+    color:var(--gold2);
+}
+
+/* ANIMATION */
+
+@keyframes fadeUp{
+
+    from{
+        opacity:0;
+        transform:translateY(60px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+
+}
+
+/* RESPONSIVE */
+
+@media(max-width:1150px){
+
+    .hero{
+        flex-direction:column;
+        justify-content:center;
+        gap:50px;
+        text-align:center;
+    }
+
+    .hero-text{
+        max-width:100%;
+    }
+
+    .hero-panel{
+        width:100%;
+    }
+
+    .market-cards,
+    .benefit-grid,
+    .course-grid,
+    .stats{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+}
+
+@media(max-width:760px){
+
+    .navbar{
+        padding:20px;
+        flex-direction:column;
+        gap:20px;
+    }
+
+    .navbar nav{
+        flex-wrap:wrap;
+        justify-content:center;
+    }
+
+    .hero{
+        padding:60px 25px;
+    }
+
+    .hero-text h1{
+        font-size:48px;
+    }
+
+    .market-section,
+    .benefits,
+    .courses,
+    .stats{
+        padding:80px 25px;
+    }
+
+    .market-cards,
+    .benefit-grid,
+    .course-grid,
+    .stats{
+        grid-template-columns:1fr;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- PARTICLES -->
+
+<div class="particles">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+</div>
+
+<!-- NAVBAR -->
+
+<header class="navbar">
+
+    <div class="logo">
+        American Finance
+    </div>
+
+    <nav>
+        <a href="index.html">Inicio</a>
+        <a href="cursos.html">Cursos</a>
+        <a href="recursos.html">Recursos</a>
+        <a href="simulador.html">Simulador</a>
+        <a href="calculadora.html">Calculadora</a>
+        <a href="comunidad.html">Comunidad</a>
+        <a href="mercados.html">Mercados</a>
+    </nav>
+
+    <div class="auth">
+
+        <button class="login">
+            Iniciar sesión
+        </button>
+
+        <button class="register">
+            Registrarse
+        </button>
+
+    </div>
+
+</header>
+
+<!-- HERO -->
+
+<section class="hero">
+
+    <div class="hero-text">
+
+        <h1>
+
+            El futuro de tus
+            <span>finanzas</span>
+            comienza hoy
+
+        </h1>
+
+        <p>
+
+            Aprende inversiones, ahorro y educación financiera con una experiencia moderna,
+            futurista e interactiva diseñada para la nueva generación.
+
+        </p>
+
+   <!-- BOTONES -->
+
+<div class="buttons">
+
+    <button class="primary"
+    onclick="location.href='cursos.html'">
+
+        Explorar cursos
+
+    </button>
+
+    <button class="secondary"
+    onclick="location.href='mercados.html'">
+
+        Ver mercados
+
+    </button>
+
+    <button class="evaluation-btn"
+    onclick="location.href='Evaluación.html'">
+
+        Presentar evaluación
+
+    </button>
+
+</div>
+
+<!-- BOTON IA AL FINAL -->
+
+<div style="margin-top:35px;">
+
+    <button class="ai-btn"
+    onclick="location.href='IA.html'">
+
+        🤖 AF Intelligence
+
+    </button>
+
+</div>
+
+</div>
+
+    <!-- HERO PANEL -->
+
+    <div class="hero-panel">
+
+        <div class="panel-header">
+
+            <h3>Mercado en vivo</h3>
+
+            <div class="live">
+                ● LIVE
+            </div>
+
+        </div>
+
+        <div class="graph">
+
+            <svg viewBox="0 0 600 240">
+
+                <path d="
+                M0 180
+                C70 130,120 150,180 90
+                S300 20,360 100
+                S500 200,600 40
+                "></path>
+
+            </svg>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- MARKET -->
+
+<section class="market-section">
+
+    <h2 class="section-title">
+
+        Mercados <span>Globales</span>
+
+    </h2>
+
+    <div class="market-cards">
+
+        <div class="market-card">
+
+            <h2>S&P 500</h2>
+
+            <p class="up">▲ +1.2%</p>
+
+        </div>
+
+        <div class="market-card">
+
+            <h2>NASDAQ</h2>
+
+            <p class="down">▼ -0.5%</p>
+
+        </div>
+
+        <div class="market-card">
+
+            <h2>BTC</h2>
+
+            <p class="up">▲ +3.4%</p>
+
+        </div>
+
+        <div class="market-card">
+
+            <h2>ORO</h2>
+
+            <p class="up">▲ +0.8%</p>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- BENEFITS -->
+
+<section class="benefits">
+
+    <h2 class="section-title">
+
+        ¿Por qué elegir
+        <span>American Finance</span>?
+
+    </h2>
+
+    <div class="benefit-grid">
+
+        <div class="card">
+
+            <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=900&q=80">
+
+            <div class="card-content">
+
+                <h3>Aprende a tu ritmo</h3>
+
+                <p>
+
+                    Accede a lecciones modernas y dinámicas desde cualquier lugar del mundo.
+
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="card">
+
+            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=900&q=80">
+
+            <div class="card-content">
+
+                <h3>Contenido profesional</h3>
+
+                <p>
+
+                    Aprende estrategias financieras reales con una interfaz avanzada.
+
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="card">
+
+            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=900&q=80">
+
+            <div class="card-content">
+
+                <h3>Información confiable</h3>
+
+                <p>
+
+                    Obtén herramientas modernas y simulaciones financieras inteligentes.
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- COURSES -->
+
+<section class="courses">
+
+    <h2 class="section-title">
+
+        Cursos <span>Destacados</span>
+
+    </h2>
+
+    <div class="course-grid">
+
+        <div class="course-card">
+
+            <img src="https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=900&q=80">
+
+            <div class="course-info">
+
+                <h3>Introducción a Inversiones</h3>
+
+                <p>
+
+                    Aprende los fundamentos del mercado financiero moderno.
+
+                </p>
+
+                <button class="cursos-secundario"
+            onclick="location.href='cursos.html'">
+                    Entrar
+                </button>
+
+            </div>
+
+        </div>
+
+        <div class="course-card">
+
+            <img src="https://images.unsplash.com/photo-1518186285589-2f7649de83e0?auto=format&fit=crop&w=900&q=80">
+
+            <div class="course-info">
+
+                <h3>Criptomonedas</h3>
+
+                <p>
+
+                    Descubre el funcionamiento del blockchain y activos digitales.
+
+                </p>
+
+                <button  class="cursos-secundario"
+            onclick="location.href='cursos.html'">
+                    Entrar
+                </button>
+
+            </div>
+
+        </div>
+
+        <div class="course-card">
+
+            <img src="https://images.unsplash.com/photo-1559526324-593bc073d938?auto=format&fit=crop&w=900&q=80">
+
+            <div class="course-info">
+
+                <h3>Finanzas Personales</h3>
+
+                <p>
+
+                    Organiza tu dinero y mejora tus hábitos financieros.
+
+                </p>
+
+                <button  class="cursos-secundario"
+            onclick="location.href='cursos.html'">
+                    Entrar
+                </button>
+
+            </div>
+
+        </div>
+
+        <div class="course-card">
+
+            <img src="https://images.unsplash.com/photo-1556740749-887f6717d7e4?auto=format&fit=crop&w=900&q=80">
+
+            <div class="course-info">
+
+                <h3>Trading Inteligente</h3>
+
+                <p>
+
+                    Aprende estrategias modernas para analizar mercados.
+
+                </p>
+
+                <button  class="cursos-secundario"
+            onclick="location.href='cursos.html'">
+                    Entrar
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- STATS -->
+
+<section class="stats">
+
+    <div class="stat">
+
+        <h2>+12K</h2>
+
+        <p>Usuarios activos</p>
+
+    </div>
+
+    <div class="stat">
+
+        <h2>95%</h2>
+
+        <p>Satisfacción</p>
+
+    </div>
+
+    <div class="stat">
+
+        <h2>+320</h2>
+
+        <p>Lecciones</p>
+
+    </div>
+
+    <div class="stat">
+
+        <h2>24/7</h2>
+
+        <p>Acceso online</p>
+
+    </div>
+
+</section>
+
+<!-- FOOTER -->
+
+<footer>
+
+    <p>
+
+        © 2026 American Finance • Diseño Futurista
+
+    </p>
+
+</footer>
+
+<script>
+
+/* PARALLAX */
+
+document.addEventListener("mousemove",(e)=>{
+
+    const hero = document.querySelector(".hero");
+
+    let x = (window.innerWidth / 2 - e.pageX) / 40;
+    let y = (window.innerHeight / 2 - e.pageY) / 40;
+
+    hero.style.backgroundPosition = `${x}px ${y}px`;
+
+});
+
+/* ANIMACION NUMEROS */
+
+const stats = document.querySelectorAll(".stat h2");
+
+stats.forEach(stat=>{
+
+    const finalText = stat.innerText;
+
+    const isPercent = finalText.includes("%");
+    const isPlus = finalText.includes("+");
+
+    let number = parseInt(finalText.replace(/\D/g,""));
+
+    let count = 0;
+
+    const interval = setInterval(()=>{
+
+        count += Math.ceil(number / 50);
+
+        if(count >= number){
+
+            count = number;
+
+            clearInterval(interval);
+
+        }
+
+        stat.innerText =
+        (isPlus ? "+" : "") +
+        count +
+        (isPercent ? "%" : "");
+
+    },30);
+
+});
+
+</script>
+
+</body>
+</html>

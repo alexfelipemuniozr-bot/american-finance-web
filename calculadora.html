@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Calculadora Financiera</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial;
+  background: #0a0a0a;
+  color: white;
+}
+
+/* NAV */
+.navbar {
+  padding: 20px 40px;
+  background: black;
+  color: gold;
+  display: flex;
+  justify-content: space-between;
+}
+
+.navbar a {
+  color: gold;
+  text-decoration: none;
+}
+
+/* CONTENEDOR */
+.container {
+  padding: 40px;
+  max-width: 600px;
+  margin: auto;
+}
+
+/* TABS */
+.tabs {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.tab {
+  flex: 1;
+  padding: 10px;
+  text-align: center;
+  background: #111;
+  cursor: pointer;
+  border: 1px solid #333;
+}
+
+.tab.active {
+  background: gold;
+  color: black;
+}
+
+/* PANEL */
+.panel {
+  display: none;
+}
+
+.panel.active {
+  display: block;
+}
+
+/* INPUT */
+input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 8px;
+  border: none;
+}
+
+/* BOTÓN */
+button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 8px;
+  background: gold;
+  color: black;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* RESULTADO */
+.result {
+  margin-top: 15px;
+  font-size: 18px;
+  color: #00ff88;
+}
+</style>
+</head>
+
+<body>
+
+<div class="navbar">
+  <div>🧮 Calculadora Financiera</div>
+  <div><a href="index.html">⬅ Inicio</a></div>
+</div>
+
+<div class="container">
+
+<!-- TABS -->
+<div class="tabs">
+  <div class="tab active" onclick="cambiar(0)">Interés</div>
+  <div class="tab" onclick="cambiar(1)">Ahorro</div>
+  <div class="tab" onclick="cambiar(2)">Meta</div>
+  <div class="tab" onclick="cambiar(3)">Deuda</div>
+</div>
+
+<!-- INTERÉS COMPUESTO -->
+<div class="panel active">
+  <h2>📈 Interés compuesto</h2>
+  <input id="capital" placeholder="Capital inicial">
+  <input id="tasa" placeholder="Tasa anual (%)">
+  <input id="años" placeholder="Años">
+
+  <button onclick="interes()">Calcular</button>
+  <div class="result" id="r1"></div>
+</div>
+
+<!-- AHORRO -->
+<div class="panel">
+  <h2>💰 Ahorro mensual</h2>
+  <input id="ahorro" placeholder="Ahorro mensual">
+  <input id="meses" placeholder="Meses">
+
+  <button onclick="ahorro()">Calcular</button>
+  <div class="result" id="r2"></div>
+</div>
+
+<!-- META -->
+<div class="panel">
+  <h2>🎯 Meta financiera</h2>
+  <input id="meta" placeholder="Meta total">
+  <input id="mesesMeta" placeholder="Meses">
+
+  <button onclick="metaCalc()">Calcular</button>
+  <div class="result" id="r3"></div>
+</div>
+
+<!-- DEUDA -->
+<div class="panel">
+  <h2>💳 Pago de deuda</h2>
+  <input id="deuda" placeholder="Deuda total">
+  <input id="pago" placeholder="Pago mensual">
+
+  <button onclick="deudaCalc()">Calcular</button>
+  <div class="result" id="r4"></div>
+</div>
+
+</div>
+
+<script>
+
+// tabs
+function cambiar(i){
+document.querySelectorAll(".tab").forEach((t,idx)=>{
+t.classList.toggle("active", idx===i);
+});
+document.querySelectorAll(".panel").forEach((p,idx)=>{
+p.classList.toggle("active", idx===i);
+});
+}
+
+// interés
+function interes(){
+let c = parseFloat(capital.value);
+let t = parseFloat(tasa.value)/100;
+let a = parseFloat(años.value);
+
+let total = c * Math.pow(1+t,a);
+r1.innerText = "Resultado: $" + total.toFixed(2);
+}
+
+// ahorro
+function ahorro(){
+let m = parseFloat(ahorro.value);
+let meses = parseFloat(document.getElementById("meses").value);
+
+let total = m * meses;
+r2.innerText = "Total ahorrado: $" + total;
+}
+
+// meta
+function metaCalc(){
+let m = parseFloat(meta.value);
+let meses = parseFloat(mesesMeta.value);
+
+let mensual = m / meses;
+r3.innerText = "Debes ahorrar: $" + mensual.toFixed(2) + " al mes";
+}
+
+// deuda
+function deudaCalc(){
+let d = parseFloat(deuda.value);
+let p = parseFloat(pago.value);
+
+let meses = d / p;
+r4.innerText = "Terminarás en: " + Math.ceil(meses) + " meses";
+}
+
+</script>
+
+</body>
+</html>

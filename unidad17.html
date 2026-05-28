@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Unidad 17 | Bolsa de valores</title>
+
+<style>
+body{
+  margin:0;
+  font-family:Arial;
+  background: radial-gradient(circle at top, #0f0f0f, #000);
+  color:#e5e5e5;
+}
+
+/* NAV */
+.navbar{
+  padding:20px 40px;
+  background: rgba(0,0,0,0.8);
+  border-bottom:1px solid #222;
+  display:flex;
+  justify-content:space-between;
+  color:gold;
+}
+
+.navbar a{
+  color:gold;
+  text-decoration:none;
+}
+
+/* LAYOUT PRINCIPAL */
+.container{
+  display:flex;
+  gap:20px;
+  padding:40px;
+}
+
+/* TARJETAS FUTURISTAS */
+.card{
+  background: rgba(20,20,20,0.6);
+  backdrop-filter: blur(10px);
+  border:1px solid rgba(255,215,0,0.2);
+  border-radius:16px;
+  padding:20px;
+  margin-bottom:20px;
+  box-shadow:0 0 20px rgba(255,215,0,0.05);
+}
+
+/* COLUMNAS */
+.left{
+  flex:1.3;
+}
+
+.right{
+  flex:1;
+  position:sticky;
+  top:20px;
+  height:fit-content;
+}
+
+/* INPUTS */
+input, select{
+  width:100%;
+  padding:12px;
+  margin-top:10px;
+  border-radius:10px;
+  border:none;
+  background:#111;
+  color:white;
+  outline:none;
+}
+
+/* BOTÓN */
+button{
+  width:100%;
+  padding:12px;
+  margin-top:10px;
+  border:none;
+  border-radius:10px;
+  background:gold;
+  color:black;
+  font-weight:bold;
+  cursor:pointer;
+  transition:0.2s;
+}
+
+button:hover{
+  transform:scale(1.02);
+}
+
+/* OPCIONES */
+.option{
+  display:block;
+  padding:10px;
+  margin:8px 0;
+  border-radius:10px;
+  background:#111;
+  border:1px solid #333;
+  cursor:pointer;
+  transition:0.2s;
+}
+
+.option:hover{
+  border-color:gold;
+  transform:scale(1.01);
+}
+
+/* RESULTADOS */
+#result{
+  margin-top:10px;
+  font-weight:bold;
+}
+
+.good{ color:#00ff88; }
+.bad{ color:#ff4d4d; }
+
+/* TITULOS */
+h1,h2,h3{
+  color:gold;
+}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .container{
+    flex-direction:column;
+  }
+  .right{
+    position:relative;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="navbar">
+  <div>📘 Unidad 17 — Bolsa de valores</div>
+  <div><a href="cursos.html">⬅ Volver</a></div>
+</div>
+
+<div class="container">
+
+<!-- IZQUIERDA: CONTENIDO -->
+<div class="left">
+
+  <div class="card">
+    <h1>📊 Bolsa de valores</h1>
+    <p>Es el mercado donde se compran y venden acciones de empresas.</p>
+
+    <h3>📈 Funcionamiento</h3>
+    <p>Los precios cambian según oferta y demanda.</p>
+
+    <h3>📊 Índices importantes</h3>
+    <ul>
+      <li>S&P 500</li>
+      <li>NASDAQ</li>
+      <li>Dow Jones</li>
+    </ul>
+
+    <h3>💡 Idea clave</h3>
+    <p>Invertir significa asumir riesgo para obtener ganancia futura.</p>
+  </div>
+
+  <div class="card">
+    <h2>💻 Simulador de inversión</h2>
+
+    <input type="number" id="dinero" placeholder="Dinero disponible">
+
+    <select id="accion">
+      <option value="apple">Apple (medio riesgo)</option>
+      <option value="tesla">Tesla (alto riesgo)</option>
+      <option value="coca">Coca-Cola (bajo riesgo)</option>
+    </select>
+
+    <button onclick="invertir()">Simular inversión</button>
+
+    <p id="simulador"></p>
+  </div>
+
+</div>
+
+<!-- DERECHA: QUIZ -->
+<div class="right">
+
+  <div class="card">
+    <h2>🎮 Evaluación</h2>
+
+    <div class="question">
+      <p>1. ¿Qué es la bolsa de valores?</p>
+      <div class="option" onclick="select(this,true,1)">Mercado de acciones</div>
+      <div class="option" onclick="select(this,false,1)">Banco central</div>
+    </div>
+
+    <div class="question">
+      <p>2. ¿Qué afecta los precios?</p>
+      <div class="option" onclick="select(this,true,2)">Oferta y demanda</div>
+      <div class="option" onclick="select(this,false,2)">Azar</div>
+    </div>
+
+    <div class="question">
+      <p>3. ¿Qué es un índice?</p>
+      <div class="option" onclick="select(this,true,3)">Grupo de empresas</div>
+      <div class="option" onclick="select(this,false,3)">Una sola empresa</div>
+    </div>
+
+    <button onclick="finalizar()">Finalizar evaluación</button>
+
+    <p id="result"></p>
+  </div>
+
+</div>
+
+</div>
+
+<script>
+
+// SIMULADOR
+function invertir(){
+
+  let dinero = parseFloat(document.getElementById("dinero").value);
+  let accion = document.getElementById("accion").value;
+
+  if(!dinero){
+    document.getElementById("simulador").innerText = "Ingresa un monto válido";
+    return;
+  }
+
+  const rendimiento = {
+    apple:0.10,
+    tesla:0.20,
+    coca:0.05
+  };
+
+  let resultado = dinero * (1 + rendimiento[accion]);
+
+  document.getElementById("simulador").innerText =
+    "📊 Valor estimado: $" + resultado.toFixed(2);
+}
+
+// QUIZ
+let score = 0;
+let answered = {};
+let intentos = 0;
+
+function select(el, ok, q){
+  if(answered[q]) return;
+
+  answered[q] = true;
+
+  if(ok){
+    score++;
+    el.style.border = "2px solid #00ff88";
+  }else{
+    el.style.border = "2px solid red";
+  }
+}
+
+function finalizar(){
+
+  let result = document.getElementById("result");
+  intentos++;
+
+  if(score >= 2){
+
+    result.innerHTML = "🚀 Unidad completada";
+    result.className = "good";
+
+    localStorage.setItem("unidad17","ok");
+
+    setTimeout(()=>{
+      window.location.href="unidad18.html";
+    },1500);
+
+  }else{
+
+    result.innerHTML = "❌ Intenta nuevamente (Intento #" + intentos + ")";
+    result.className = "bad";
+
+    setTimeout(()=>{
+      score = 0;
+      answered = {};
+
+      document.querySelectorAll(".option").forEach(op=>{
+        op.style.border="1px solid #333";
+      });
+
+      document.getElementById("result").innerHTML="";
+    },2000);
+  }
+}
+
+</script>
+
+</body>
+</html>

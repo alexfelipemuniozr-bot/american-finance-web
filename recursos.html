@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Recursos PRO | American Finance</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+body{
+  margin:0;
+  font-family:Inter;
+  background:#0a0a0a;
+  color:white;
+}
+
+/* NAV */
+.navbar{
+  display:flex;
+  justify-content:space-between;
+  padding:16px 50px;
+  background:#000;
+  border-bottom:1px solid #1f1f1f;
+}
+
+.navbar a{
+  color:#bfa133;
+  margin:0 10px;
+  text-decoration:none;
+}
+
+.navbar a:hover{
+  color:gold;
+}
+
+/* HEADER */
+.header{
+  padding:30px 50px 10px;
+}
+
+.header h1{
+  color:gold;
+}
+
+/* SEARCH */
+.search{
+  padding:10px 50px;
+}
+
+.search input{
+  width:100%;
+  padding:14px;
+  border-radius:10px;
+  border:none;
+  background:#111;
+  color:white;
+}
+
+/* GRID */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:18px;
+  padding:30px 50px;
+}
+
+/* CARD */
+.card{
+  background:#111;
+  border:1px solid #1f1f1f;
+  border-radius:12px;
+  overflow:hidden;
+  cursor:pointer;
+  transition:.3s;
+}
+
+.card:hover{
+  transform:scale(1.04);
+  border:1px solid gold;
+}
+
+.card img{
+  width:100%;
+  height:140px;
+  object-fit:cover;
+}
+
+.title{
+  padding:10px;
+  font-size:14px;
+}
+
+/* MODAL */
+.modal{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  display:none;
+  justify-content:center;
+  align-items:center;
+  background:rgba(0,0,0,0.9);
+}
+
+iframe{
+  width:90%;
+  max-width:900px;
+  height:500px;
+  border-radius:12px;
+}
+
+.close{
+  color:gold;
+  text-align:right;
+  font-size:24px;
+  cursor:pointer;
+  margin-bottom:10px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAV -->
+<div class="navbar">
+  <div style="color:gold;font-weight:bold;">American Finance</div>
+  <div>
+    <a href="index.html">Inicio</a>
+    <a href="cursos.html">Cursos</a>
+    <a href="simulador.html">Simulador</a>
+    <a href="calculadora.html">Calculadora</a>
+    <a href="comunidad.html">Comunidad</a>
+  </div>
+</div>
+
+<!-- HEADER -->
+<div class="header">
+  <h1>Biblioteca de Recursos</h1>
+</div>
+
+<!-- SEARCH -->
+<div class="search">
+  <input id="search" placeholder="Buscar videos...">
+</div>
+
+<!-- CONTENIDO -->
+<div id="contenido" class="grid"></div>
+
+<!-- MODAL -->
+<div class="modal" id="modal">
+  <div>
+    <div class="close" onclick="cerrar()">✖</div>
+    <iframe id="video" allowfullscreen></iframe>
+  </div>
+</div>
+
+<script>
+
+const API_KEY = "AIzaSyDtwZy66gMDhQqeLcypx9KP_m_CvZmpRA0";
+
+/* 🔥 1. BUSCAR VIDEOS */
+async function buscarVideos(query){
+
+try {
+
+const res = await fetch(
+`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(query)}&type=video&maxResults=10&key=${API_KEY}`
+);
+
+const data = await res.json();
+
+if(!data.items){
+  document.getElementById("contenido").innerHTML =
+  "<p style='padding:20px'>❌ Error API Key o permisos</p>";
+  return;
+}
+
+/* 🔥 2. EXTRAER IDS VÁLIDOS */
+let ids = data.items
+.filter(v => v.id && v.id.videoId)
+.map(v => v.id.videoId)
+.join(",");
+
+/* 🔥 3. VALIDAR VIDEOS REALES */
+const res2 = await fetch(
+`https://www.googleapis.com/youtube/v3/videos?part=snippet,status&id=${ids}&key=${API_KEY}`
+);
+
+const data2 = await res2.json();
+
+if(!data2.items){
+  document.getElementById("contenido").innerHTML =
+  "<p>No se pudieron validar videos</p>";
+  return;
+}
+
+/* 🔥 4. SOLO EMBEBIBLES */
+let validos = data2.items.filter(v =>
+v.status && v.status.embeddable === true
+);
+
+/* 🔥 5. RENDER */
+render(validos);
+
+} catch(err){
+console.log(err);
+document.getElementById("contenido").innerHTML =
+"<p>Error de conexión con YouTube API</p>";
+}
+
+}
+
+/* 📺 RENDER */
+function render(videos){
+
+let cont = document.getElementById("contenido");
+cont.innerHTML = "";
+
+if(videos.length === 0){
+  cont.innerHTML = "<p style='padding:20px'>No hay videos disponibles.</p>";
+  return;
+}
+
+videos.forEach(v => {
+
+cont.innerHTML += `
+<div class="card" onclick="abrir('${v.id}')">
+  <img src="${v.snippet.thumbnails.medium.url}">
+  <div class="title">${v.snippet.title}</div>
+</div>
+`;
+
+});
+
+}
+
+/* 🎬 ABRIR VIDEO */
+function abrir(id){
+
+if(!id){
+  alert("Video inválido");
+  return;
+}
+
+document.getElementById("modal").style.display="flex";
+
+document.getElementById("video").src =
+`https://www.youtube.com/embed/${id}?autoplay=1`;
+
+}
+
+/* ❌ CERRAR */
+function cerrar(){
+document.getElementById("modal").style.display="none";
+document.getElementById("video").src="";
+}
+
+/* 🔎 BUSCADOR */
+document.getElementById("search").addEventListener("input",function(){
+if(this.value.length > 2){
+  buscarVideos(this.value);
+}
+});
+
+/* 🚀 INICIO */
+buscarVideos("educación financiera");
+
+</script>
+
+</body>
+</html>
